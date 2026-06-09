@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getMaterialUsageSummary } from "../lib/materialSummary";
-import { createObjectPart } from "../lib/project";
+import { DEFAULT_BUILD_STATUSES, createObjectPart } from "../lib/project";
 import type { MaterialNode } from "../types/model";
 
 const TIMBER_MATERIAL: MaterialNode = {
@@ -197,5 +197,39 @@ describe("material summary", () => {
 
     expect(summary).toHaveLength(2);
     expect(summary.every((item) => item.cutPlan?.stockCount === 1)).toBe(true);
+  });
+
+  it("keeps already handled parts out of cutting stock while reporting status counts", () => {
+    const planned = {
+      ...createObjectPart(0, { objectType: "timber", profileId: "timber-100x100", size: { x: 1200, y: 100, z: 100 } }),
+      name: "Planned cut",
+      materialId: TIMBER_60_MATERIAL.id,
+      buildStatusId: "planned",
+    };
+    const prepared = {
+      ...createObjectPart(1, { objectType: "timber", profileId: "timber-100x100", size: { x: 1200, y: 100, z: 100 } }),
+      name: "Prepared cut",
+      materialId: TIMBER_60_MATERIAL.id,
+      buildStatusId: "material-ready",
+    };
+    const installed = {
+      ...createObjectPart(2, { objectType: "timber", profileId: "timber-100x100", size: { x: 1200, y: 100, z: 100 } }),
+      name: "Installed cut",
+      materialId: TIMBER_60_MATERIAL.id,
+      buildStatusId: "installed",
+    };
+
+    const summary = getMaterialUsageSummary([planned, prepared, installed], [TIMBER_60_MATERIAL], 3, {
+      buildStatuses: DEFAULT_BUILD_STATUSES,
+    });
+
+    expect(summary[0].count).toBe(3);
+    expect(summary[0].plannedPartIds).toEqual([planned.id]);
+    expect(summary[0].handledPartIds).toEqual([prepared.id, installed.id]);
+    expect(summary[0].totalLengthMm).toBe(3600);
+    expect(summary[0].plannedLengthMm).toBe(1200);
+    expect(summary[0].statusCounts).toMatchObject({ planned: 1, "material-ready": 1, installed: 1 });
+    expect(summary[0].cutPlan?.stockCount).toBe(1);
+    expect(summary[0].cutPlan?.stock[0].cuts.map((cut) => cut.partName)).toEqual(["Planned cut"]);
   });
 });
