@@ -1,4 +1,4 @@
-import { DEFAULT_CUT_SETTINGS, DEFAULT_GRID_SETTINGS, PROJECT_SCHEMA_VERSION, createInitialMaterials } from "./project";
+import { DEFAULT_BUILD_STATUS_ID, DEFAULT_BUILD_STATUSES, DEFAULT_CUT_SETTINGS, DEFAULT_GRID_SETTINGS, PROJECT_SCHEMA_VERSION, createInitialMaterials } from "./project";
 import { DEFAULT_OBJECT_COLOR } from "./materials";
 import { createSizeFromProfile, extractLockFields, getProfileById } from "./profiles";
 import type { AxisLocks, MaterialLibraryDocument, MaterialNode, MeasurementNode, ObjectProfileId, PartNode, ProjectDocument } from "../types/model";
@@ -89,8 +89,19 @@ type ProjectDocumentV9 = Omit<ProjectDocument, "version" | "parts" | "materials"
   materials: Array<Omit<MaterialNode, "lockedAxes">>;
 };
 
-type ProjectDocumentV10 = Omit<ProjectDocument, "version" | "cutSettings"> & {
+type ProjectDocumentV10 = Omit<ProjectDocument, "version" | "cutSettings" | "buildStatuses" | "parts"> & {
   version: 10;
+  parts: Array<Omit<PartNode, "buildStatusId">>;
+};
+
+type ProjectDocumentV11 = Omit<ProjectDocument, "version" | "variables" | "buildStatuses" | "parts"> & {
+  version: 11;
+  parts: Array<Omit<PartNode, "paramBindings" | "buildStatusId">>;
+};
+
+type ProjectDocumentV12 = Omit<ProjectDocument, "version" | "buildStatuses" | "parts"> & {
+  version: 12;
+  parts: Array<Omit<PartNode, "buildStatusId">>;
 };
 
 type Web3dProjectFile = {
@@ -283,10 +294,30 @@ function migrateProjectV9ToCurrent(project: ProjectDocumentV9): ProjectDocument 
 }
 
 function migrateProjectV10ToCurrent(project: ProjectDocumentV10): ProjectDocument {
+  const v11: ProjectDocumentV11 = {
+    ...project,
+    version: 11 as const,
+    cutSettings: { ...DEFAULT_CUT_SETTINGS },
+  };
+  return migrateProjectV11ToCurrent(v11);
+}
+
+function migrateProjectV11ToCurrent(project: ProjectDocumentV11): ProjectDocument {
+  const v12: ProjectDocumentV12 = {
+    ...project,
+    version: 12 as const,
+    variables: [],
+    parts: project.parts.map((part) => ({ ...part })),
+  };
+  return migrateProjectV12ToCurrent(v12);
+}
+
+function migrateProjectV12ToCurrent(project: ProjectDocumentV12): ProjectDocument {
   return {
     ...project,
     version: PROJECT_SCHEMA_VERSION,
-    cutSettings: { ...DEFAULT_CUT_SETTINGS },
+    buildStatuses: DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
+    parts: project.parts.map((part) => ({ ...part, buildStatusId: DEFAULT_BUILD_STATUS_ID })),
   };
 }
 
@@ -350,6 +381,14 @@ export function deserializeProject(payload: string): ProjectDocument {
     return migrateProjectV10ToCurrent(parsed as unknown as ProjectDocumentV10);
   }
 
+  if (parsed.version === 11) {
+    return migrateProjectV11ToCurrent(parsed as unknown as ProjectDocumentV11);
+  }
+
+  if (parsed.version === 12) {
+    return migrateProjectV12ToCurrent(parsed as unknown as ProjectDocumentV12);
+  }
+
   if (parsed.version !== PROJECT_SCHEMA_VERSION) {
     throw new Error(`Unsupported project version: ${parsed.version}`);
   }
@@ -364,7 +403,17 @@ export function deserializeProject(payload: string): ProjectDocument {
     throw new Error("Invalid project payload");
   }
 
-  return parsed;
+  return {
+    ...parsed,
+    variables: Array.isArray((parsed as ProjectDocument).variables) ? (parsed as ProjectDocument).variables : [],
+    buildStatuses: Array.isArray((parsed as ProjectDocument).buildStatuses)
+      ? (parsed as ProjectDocument).buildStatuses
+      : DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
+    parts: parsed.parts.map((part) => ({
+      ...part,
+      buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+    })),
+  } as ProjectDocument;
 }
 
 export function deserializeProjectFile(payload: string): ProjectDocument {

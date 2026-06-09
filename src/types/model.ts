@@ -41,9 +41,27 @@ export interface CutSettings {
   kerfMm: number;
 }
 
+export interface BuildStatusDefinition {
+  id: string;
+  label: string;
+}
+
 export interface CameraState {
   position: Vector3Like;
   target: Vector3Like;
+}
+
+export type ParametricFieldKey =
+  | "size.x" | "size.y" | "size.z"
+  | "position.x" | "position.y" | "position.z"
+  | "rotation.x" | "rotation.y" | "rotation.z";
+
+export type ParamBindingMap = Partial<Record<ParametricFieldKey, string>>;
+
+export interface ProjectVariable {
+  id: string;
+  name: string;
+  valueMm: number;
 }
 
 export interface PartNode {
@@ -52,6 +70,7 @@ export interface PartNode {
   objectType: ObjectType;
   groupId: string | null;
   materialId: string | null;
+  buildStatusId: string;
   size: Vector3Like;
   position: Vector3Like;
   rotation: Vector3Like;
@@ -66,6 +85,8 @@ export interface PartNode {
   thicknessMm?: number;
   /** Generic axis locks copied from the material at placement/change time. Locked axes keep their current size while resizing. */
   lockedAxes?: AxisLocks;
+  /** Optional parametric expression bindings keyed by editable part field path. */
+  paramBindings?: ParamBindingMap;
 }
 
 export interface MeasurementNode {
@@ -126,7 +147,9 @@ export interface ProjectDocument {
   snapSettings: SnapSettings;
   gridSettings: GridSettings;
   cutSettings: CutSettings;
+  buildStatuses: BuildStatusDefinition[];
   cameraState: CameraState;
+  variables: ProjectVariable[];
   groups: GroupNode[];
   parts: PartNode[];
   measurements: MeasurementNode[];

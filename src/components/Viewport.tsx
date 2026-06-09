@@ -28,7 +28,7 @@ import {
 import { getResizableAxes } from "../lib/profiles";
 import { applyResizeFromHandle } from "../lib/geometry";
 import { openProjectInArQuickLook } from "../lib/export";
-import { cloneProject } from "../lib/project";
+import { DEFAULT_BUILD_STATUS_ID, cloneProject } from "../lib/project";
 import { snapValue, toRadians } from "../lib/snap";
 import { formatLength } from "../lib/units";
 import { editorStore, useEditorStore } from "../store/editorStore";
@@ -212,35 +212,96 @@ function CameraController({
 
 function KeyDimensionGuide({ part }: { part: PartNode }) {
   const unitPreference = useEditorStore((state) => state.project.unitPreference);
-  const guideOffset = Math.max(36, part.size.z * 0.2);
-  const guideZ = part.size.z + guideOffset;
+  const axes = getResizableAxes(part);
+  const showX = axes.includes("x");
+  const showY = axes.includes("y");
+  const showZ = axes.includes("z") && part.objectType !== "circle";
+  const offset = Math.max(36, Math.max(part.size.x, part.size.y, part.size.z) * 0.14);
   const guideY = Math.max(16, Math.min(36, part.size.y * 0.12));
-  const labelPosition: [number, number, number] = [part.size.x / 2, guideY + 18, guideZ];
-  const measureText = formatLength(part.size.x, unitPreference);
+  const xGuideZ = part.size.z + offset;
+  const zGuideX = part.size.x + offset;
+  const yGuideX = part.size.x + offset * 0.65;
+  const yGuideZ = part.size.z + offset * 0.65;
 
   return (
     <>
-      <Line points={[[0, guideY, guideZ], [part.size.x, guideY, guideZ]]} color="#505a66" lineWidth={1.2} />
-      <Line points={[[0, 0, part.size.z], [0, guideY, guideZ]]} color="#9aa6b1" lineWidth={1} dashed dashSize={10} gapSize={6} />
-      <Line
-        points={[[part.size.x, 0, part.size.z], [part.size.x, guideY, guideZ]]}
-        color="#9aa6b1"
-        lineWidth={1}
-        dashed
-        dashSize={10}
-        gapSize={6}
-      />
-      <ScreenSizeMesh pixelRadius={5} position={[0, guideY, guideZ]}>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial color="#f5f7fa" />
-      </ScreenSizeMesh>
-      <ScreenSizeMesh pixelRadius={5} position={[part.size.x, guideY, guideZ]}>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial color="#f5f7fa" />
-      </ScreenSizeMesh>
-      <Html position={labelPosition} center style={{ pointerEvents: "none" }}>
-        <div className="measurement-chip">{measureText}</div>
-      </Html>
+      {showX ? (
+        <>
+          <Line points={[[0, guideY, xGuideZ], [part.size.x, guideY, xGuideZ]]} color="#505a66" lineWidth={1.2} />
+          <Line points={[[0, 0, part.size.z], [0, guideY, xGuideZ]]} color="#9aa6b1" lineWidth={1} dashed dashSize={10} gapSize={6} />
+          <Line
+            points={[[part.size.x, 0, part.size.z], [part.size.x, guideY, xGuideZ]]}
+            color="#9aa6b1"
+            lineWidth={1}
+            dashed
+            dashSize={10}
+            gapSize={6}
+          />
+          <ScreenSizeMesh pixelRadius={5} position={[0, guideY, xGuideZ]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <ScreenSizeMesh pixelRadius={5} position={[part.size.x, guideY, xGuideZ]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <Html position={[part.size.x / 2, guideY + 18, xGuideZ]} center style={{ pointerEvents: "none" }}>
+            <div className="measurement-chip">{formatLength(part.size.x, unitPreference)}</div>
+          </Html>
+        </>
+      ) : null}
+
+      {showZ ? (
+        <>
+          <Line points={[[zGuideX, guideY, 0], [zGuideX, guideY, part.size.z]]} color="#505a66" lineWidth={1.2} />
+          <Line points={[[part.size.x, 0, 0], [zGuideX, guideY, 0]]} color="#9aa6b1" lineWidth={1} dashed dashSize={10} gapSize={6} />
+          <Line
+            points={[[part.size.x, 0, part.size.z], [zGuideX, guideY, part.size.z]]}
+            color="#9aa6b1"
+            lineWidth={1}
+            dashed
+            dashSize={10}
+            gapSize={6}
+          />
+          <ScreenSizeMesh pixelRadius={5} position={[zGuideX, guideY, 0]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <ScreenSizeMesh pixelRadius={5} position={[zGuideX, guideY, part.size.z]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <Html position={[zGuideX, guideY + 18, part.size.z / 2]} center style={{ pointerEvents: "none" }}>
+            <div className="measurement-chip">{formatLength(part.size.z, unitPreference)}</div>
+          </Html>
+        </>
+      ) : null}
+
+      {showY ? (
+        <>
+          <Line points={[[yGuideX, 0, yGuideZ], [yGuideX, part.size.y, yGuideZ]]} color="#505a66" lineWidth={1.2} />
+          <Line points={[[part.size.x, 0, part.size.z], [yGuideX, 0, yGuideZ]]} color="#9aa6b1" lineWidth={1} dashed dashSize={10} gapSize={6} />
+          <Line
+            points={[[part.size.x, part.size.y, part.size.z], [yGuideX, part.size.y, yGuideZ]]}
+            color="#9aa6b1"
+            lineWidth={1}
+            dashed
+            dashSize={10}
+            gapSize={6}
+          />
+          <ScreenSizeMesh pixelRadius={5} position={[yGuideX, 0, yGuideZ]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <ScreenSizeMesh pixelRadius={5} position={[yGuideX, part.size.y, yGuideZ]}>
+            <sphereGeometry args={[1, 16, 16]} />
+            <meshStandardMaterial color="#f5f7fa" />
+          </ScreenSizeMesh>
+          <Html position={[yGuideX, part.size.y / 2, yGuideZ]} center style={{ pointerEvents: "none" }}>
+            <div className="measurement-chip">{formatLength(part.size.y, unitPreference)}</div>
+          </Html>
+        </>
+      ) : null}
     </>
   );
 }
@@ -289,6 +350,7 @@ function buildPreviewPart(material: MaterialNode): PartNode {
     objectType: material.objectType,
     groupId: null,
     materialId: material.id,
+    buildStatusId: DEFAULT_BUILD_STATUS_ID,
     size: { ...material.defaultSize },
     crossSectionWidthMm: material.crossSectionWidthMm,
     crossSectionHeightMm: material.crossSectionHeightMm,

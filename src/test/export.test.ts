@@ -6,7 +6,7 @@ import {
   exportProjectToGltf,
   exportProjectToStl,
 } from "../lib/export";
-import { createObjectPart, PROJECT_SCHEMA_VERSION } from "../lib/project";
+import { DEFAULT_BUILD_STATUSES, createObjectPart, PROJECT_SCHEMA_VERSION } from "../lib/project";
 import type { ProjectDocument } from "../types/model";
 
 describe("3D export", () => {
@@ -35,10 +35,12 @@ describe("3D export", () => {
       },
       gridSettings: { size: 6000, originX: 0, originZ: 0 },
       cutSettings: { kerfMm: 3 },
+      buildStatuses: DEFAULT_BUILD_STATUSES,
       cameraState: {
         position: { x: 1000, y: 800, z: 1000 },
         target: { x: 0, y: 0, z: 0 },
       },
+      variables: [],
       groups: [],
       measurements: [],
       materialGroups: [],
@@ -84,10 +86,12 @@ describe("3D export", () => {
       },
       gridSettings: { size: 6000, originX: 0, originZ: 0 },
       cutSettings: { kerfMm: 3 },
+      buildStatuses: DEFAULT_BUILD_STATUSES,
       cameraState: {
         position: { x: 1000, y: 800, z: 1000 },
         target: { x: 0, y: 0, z: 0 },
       },
+      variables: [],
       groups: [{ id: "group-1", name: "Frame", parentGroupId: null }],
       measurements: [
         {
@@ -143,10 +147,12 @@ describe("3D export", () => {
       },
       gridSettings: { size: 6000, originX: 0, originZ: 0 },
       cutSettings: { kerfMm: 3 },
+      buildStatuses: DEFAULT_BUILD_STATUSES,
       cameraState: {
         position: { x: 1000, y: 800, z: 1000 },
         target: { x: 0, y: 0, z: 0 },
       },
+      variables: [],
       groups: [],
       measurements: [],
       materialGroups: [],

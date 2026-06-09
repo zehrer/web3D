@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { findOverlappingParts, getPartMaterialChangeOverlaps, partsOverlap } from "../lib/collision";
-import { createInitialMaterials, createProject } from "../lib/project";
+import { DEFAULT_BUILD_STATUS_ID, createInitialMaterials, createProject } from "../lib/project";
 import type { PartNode, Vector3Like } from "../types/model";
 
 function vector(x = 0, y = 0, z = 0): Vector3Like {
@@ -14,6 +14,7 @@ function box(id: string, position: Vector3Like, size: Vector3Like, rotation = ve
     objectType: "cube",
     groupId: null,
     materialId: null,
+    buildStatusId: DEFAULT_BUILD_STATUS_ID,
     size,
     position,
     rotation,
