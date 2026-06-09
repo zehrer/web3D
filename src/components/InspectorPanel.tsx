@@ -5,7 +5,7 @@ import { getObjectTypeLabel } from "../lib/profiles";
 import { formatLength, formatMeters, formatSquareMeters, fromDisplayUnits, toDisplayUnits, UNIT_DEFINITIONS } from "../lib/units";
 import { getSelectedMeasurement, getSelectedPart, updateVector, useEditorStore } from "../store/editorStore";
 import { PrintIcon, SaveIcon, SearchIcon } from "./Icons";
-import type { MaterialGroupNode, MaterialNode, ObjectType, PartNode, UnitPreference, Vector3Like } from "../types/model";
+import type { BuildStatusDefinition, MaterialGroupNode, MaterialNode, ObjectType, PartNode, UnitPreference, Vector3Like } from "../types/model";
 
 function numericOrNull(value: string): number | null {
   const parsed = Number(value);
@@ -166,12 +166,24 @@ function formatCutLength(valueMm: number): string {
   return `${Math.round(valueMm)} mm`;
 }
 
+function getBuildStatusLabel(statusId: string, buildStatuses: BuildStatusDefinition[]): string {
+  return buildStatuses.find((status) => status.id === statusId)?.label ?? statusId;
+}
+
+function formatStatusBreakdown(statusCounts: Record<string, number>, buildStatuses: BuildStatusDefinition[]): string {
+  return Object.entries(statusCounts)
+    .filter(([, count]) => count > 0)
+    .map(([statusId, count]) => `${getBuildStatusLabel(statusId, buildStatuses)} ${count}`)
+    .join(" · ");
+}
+
 function PartsListPrintReport({
   projectName,
   items,
   parts,
   materials,
   materialGroups,
+  buildStatuses,
   unitPreference,
 }: {
   projectName: string;
@@ -179,6 +191,7 @@ function PartsListPrintReport({
   parts: PartNode[];
   materials: MaterialNode[];
   materialGroups: MaterialGroupNode[];
+  buildStatuses: BuildStatusDefinition[];
   unitPreference: UnitPreference;
 }) {
   const printedAt = new Date().toLocaleString();
@@ -205,6 +218,9 @@ function PartsListPrintReport({
               .map((partId) => parts.find((part) => part.id === partId))
               .filter((part): part is PartNode => Boolean(part))
           : [];
+        const handledParts = item.handledPartIds
+          .map((partId) => parts.find((part) => part.id === partId))
+          .filter((part): part is PartNode => Boolean(part));
 
         return (
           <section className="print-report__material" key={item.key}>
@@ -214,13 +230,14 @@ function PartsListPrintReport({
                 {getMaterialUsageCategoryLabel(item, materials, materialGroups)} · {item.count} {item.count === 1 ? "piece" : "pieces"}
                 {item.cutPlan ? ` · ${item.cutPlan.stockCount} stock · ${formatCutLength(item.cutPlan.totalWasteMm)} waste` : ""}
               </p>
+              <p>{formatStatusBreakdown(item.statusCounts, buildStatuses)}</p>
             </div>
 
             {item.cutPlan ? (
               <div className="print-report__material-metrics">
                 <span>Raw stock {formatCutLength(item.cutPlan.rawStockLengthMm)}</span>
                 <span>Kerf {formatCutLength(item.cutPlan.kerfMm)}</span>
-                <span>Total cuts {formatCutLength(item.totalLengthMm)}</span>
+                <span>To cut {formatCutLength(item.plannedLengthMm)}</span>
                 <span>Leftover {formatCutLength(item.cutPlan.totalWasteMm)}</span>
               </div>
             ) : null}
@@ -266,6 +283,27 @@ function PartsListPrintReport({
                 </tbody>
               </table>
             ) : null}
+
+            {handledParts.length > 0 ? (
+              <table className="print-report__cuts">
+                <thead>
+                  <tr>
+                    <th>Already handled</th>
+                    <th>Status</th>
+                    <th>Length</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {handledParts.map((part) => (
+                    <tr key={part.id}>
+                      <td>{part.name}</td>
+                      <td>{getBuildStatusLabel(part.buildStatusId, buildStatuses)}</td>
+                      <td>{formatCutLength(part.size.x)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : null}
           </section>
         );
       })}
@@ -282,6 +320,9 @@ function PartsListPrintReport({
             const oversizeParts = panelPlan.oversizePartIds
               .map((partId) => parts.find((part) => part.id === partId))
               .filter((part): part is PartNode => Boolean(part));
+            const handledParts = item.handledPartIds
+              .map((partId) => parts.find((part) => part.id === partId))
+              .filter((part): part is PartNode => Boolean(part));
 
             return (
               <section className="print-report__material" key={item.key}>
@@ -290,11 +331,12 @@ function PartsListPrintReport({
                   <p>
                     {getMaterialUsageCategoryLabel(item, materials, materialGroups)} · {item.count} {item.count === 1 ? "piece" : "pieces"} · {panelPlan.stockCount} sheets
                   </p>
+                  <p>{formatStatusBreakdown(item.statusCounts, buildStatuses)}</p>
                 </div>
                 <div className="print-report__material-metrics">
                   <span>Raw sheet {formatCutLength(panelPlan.rawWidthMm)} × {formatCutLength(panelPlan.rawHeightMm)}</span>
                   <span>Kerf {formatCutLength(panelPlan.kerfMm)}</span>
-                  <span>Total area {formatSquareMeters(item.totalAreaMm2)}</span>
+                  <span>To cut {formatSquareMeters(item.plannedAreaMm2)}</span>
                   <span>Waste {formatSquareMeters(panelPlan.totalWasteMm2)}</span>
                 </div>
                 <div className="print-report__stock-grid">
@@ -327,6 +369,26 @@ function PartsListPrintReport({
                       {oversizeParts.map((part) => (
                         <tr key={part.id}>
                           <td>{part.name}</td>
+                          <td>{formatPartDimensions(part, unitPreference)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : null}
+                {handledParts.length > 0 ? (
+                  <table className="print-report__cuts">
+                    <thead>
+                      <tr>
+                        <th>Already handled</th>
+                        <th>Status</th>
+                        <th>Dimensions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {handledParts.map((part) => (
+                        <tr key={part.id}>
+                          <td>{part.name}</td>
+                          <td>{getBuildStatusLabel(part.buildStatusId, buildStatuses)}</td>
                           <td>{formatPartDimensions(part, unitPreference)}</td>
                         </tr>
                       ))}
@@ -417,6 +479,7 @@ function buildPartsListReportHtml({
   parts,
   materials,
   materialGroups,
+  buildStatuses,
   unitPreference,
 }: {
   projectName: string;
@@ -424,6 +487,7 @@ function buildPartsListReportHtml({
   parts: PartNode[];
   materials: MaterialNode[];
   materialGroups: MaterialGroupNode[];
+  buildStatuses: BuildStatusDefinition[];
   unitPreference: UnitPreference;
 }): string {
   const printedAt = new Date().toLocaleString();
@@ -458,6 +522,10 @@ function buildPartsListReportHtml({
     const oversizeParts = cutPlan.oversizePartIds
       .map((partId) => parts.find((part) => part.id === partId))
       .filter((part): part is PartNode => Boolean(part));
+    const handledParts = item.handledPartIds
+      .map((partId) => parts.find((part) => part.id === partId))
+      .filter((part): part is PartNode => Boolean(part));
+    const statusBreakdown = formatStatusBreakdown(item.statusCounts, buildStatuses);
 
     return `
       <section class="material-section">
@@ -465,13 +533,14 @@ function buildPartsListReportHtml({
           <div>
             <h2>${escapeHtml(item.label)}</h2>
             <p>${escapeHtml(getMaterialUsageCategoryLabel(item, materials, materialGroups))} · ${item.count} ${item.count === 1 ? "piece" : "pieces"} · ${cutPlan.stockCount} stock</p>
+            ${statusBreakdown ? `<p>${escapeHtml(statusBreakdown)}</p>` : ""}
           </div>
           <strong>${formatCutLength(cutPlan.totalWasteMm)} waste</strong>
         </header>
         <div class="metrics">
           <span>Raw stock <strong>${formatCutLength(cutPlan.rawStockLengthMm)}</strong></span>
           <span>Kerf <strong>${formatCutLength(cutPlan.kerfMm)}</strong></span>
-          <span>Total cuts <strong>${formatCutLength(item.totalLengthMm)}</strong></span>
+          <span>To cut <strong>${formatCutLength(item.plannedLengthMm)}</strong></span>
           <span>Leftover <strong>${formatCutLength(cutPlan.totalWasteMm)}</strong></span>
         </div>
         <div class="stock-grid">
@@ -499,6 +568,28 @@ function buildPartsListReportHtml({
             `
             : ""
         }
+        ${
+          handledParts.length > 0
+            ? `
+              <table class="handled-table">
+                <thead><tr><th>Already handled</th><th>Status</th><th>Length</th></tr></thead>
+                <tbody>
+                  ${handledParts
+                    .map(
+                      (part) => `
+                        <tr>
+                          <td>${escapeHtml(part.name)}</td>
+                          <td>${escapeHtml(getBuildStatusLabel(part.buildStatusId, buildStatuses))}</td>
+                          <td>${formatCutLength(part.size.x)}</td>
+                        </tr>
+                      `,
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            `
+            : ""
+        }
       </section>
     `;
   };
@@ -509,6 +600,10 @@ function buildPartsListReportHtml({
     const oversizeParts = panelPlan.oversizePartIds
       .map((partId) => parts.find((part) => part.id === partId))
       .filter((part): part is PartNode => Boolean(part));
+    const handledParts = item.handledPartIds
+      .map((partId) => parts.find((part) => part.id === partId))
+      .filter((part): part is PartNode => Boolean(part));
+    const statusBreakdown = formatStatusBreakdown(item.statusCounts, buildStatuses);
 
     return `
       <section class="material-section">
@@ -516,13 +611,14 @@ function buildPartsListReportHtml({
           <div>
             <h2>${escapeHtml(item.label)}</h2>
             <p>${escapeHtml(getMaterialUsageCategoryLabel(item, materials, materialGroups))} · ${item.count} ${item.count === 1 ? "piece" : "pieces"} · ${panelPlan.stockCount} sheets</p>
+            ${statusBreakdown ? `<p>${escapeHtml(statusBreakdown)}</p>` : ""}
           </div>
           <strong>${formatSquareMeters(panelPlan.totalWasteMm2)} waste</strong>
         </header>
         <div class="metrics">
           <span>Raw sheet <strong>${formatCutLength(panelPlan.rawWidthMm)} × ${formatCutLength(panelPlan.rawHeightMm)}</strong></span>
           <span>Kerf <strong>${formatCutLength(panelPlan.kerfMm)}</strong></span>
-          <span>Total area <strong>${formatSquareMeters(item.totalAreaMm2)}</strong></span>
+          <span>To cut <strong>${formatSquareMeters(item.plannedAreaMm2)}</strong></span>
           <span>Waste <strong>${formatSquareMeters(panelPlan.totalWasteMm2)}</strong></span>
         </div>
         <div class="stock-grid">
@@ -573,6 +669,28 @@ function buildPartsListReportHtml({
             `
             : ""
         }
+        ${
+          handledParts.length > 0
+            ? `
+              <table class="handled-table">
+                <thead><tr><th>Already handled</th><th>Status</th><th>Dimensions</th></tr></thead>
+                <tbody>
+                  ${handledParts
+                    .map(
+                      (part) => `
+                        <tr>
+                          <td>${escapeHtml(part.name)}</td>
+                          <td>${escapeHtml(getBuildStatusLabel(part.buildStatusId, buildStatuses))}</td>
+                          <td>${escapeHtml(formatPartDimensions(part, unitPreference))}</td>
+                        </tr>
+                      `,
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            `
+            : ""
+        }
       </section>
     `;
   };
@@ -608,6 +726,8 @@ function buildPartsListReportHtml({
           <td>${escapeHtml(item.label)}</td>
           <td>${escapeHtml(getMaterialUsageCategoryLabel(item, materials, materialGroups))}</td>
           <td>${item.count}</td>
+          <td>${item.plannedPartIds.length}</td>
+          <td>${item.handledPartIds.length}</td>
           <td>${item.kind === "linear" ? formatMeters(item.totalLengthMm) : formatSquareMeters(item.totalAreaMm2)}</td>
           <td>${item.cutPlan ? item.cutPlan.stockCount : item.panelPlan ? item.panelPlan.stockCount : "-"}</td>
           <td>${item.cutPlan ? formatCutLength(item.cutPlan.totalWasteMm) : item.panelPlan ? formatSquareMeters(item.panelPlan.totalWasteMm2) : "-"}</td>
@@ -724,6 +844,7 @@ function buildPartsListReportHtml({
       }
       .area-section, .overview { margin-top: 5mm; }
       .warning-table th { background: #f7e5e2; }
+      .handled-table th { background: #e6f0e9; }
       @media screen {
         body { background: #d8dce0; padding: 12px; }
         .report { background: #fff; width: 210mm; min-height: 297mm; margin: 0 auto; padding: 7mm; box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
@@ -762,7 +883,7 @@ function buildPartsListReportHtml({
       <section class="overview">
         <h2>Overview</h2>
         <table>
-          <thead><tr><th>Material</th><th>Group</th><th>Pieces</th><th>Total</th><th>Stock</th><th>Waste</th></tr></thead>
+          <thead><tr><th>Material</th><th>Group</th><th>Pieces</th><th>To cut</th><th>Handled</th><th>Total</th><th>Stock</th><th>Waste</th></tr></thead>
           <tbody>${overviewRows}</tbody>
         </table>
       </section>
@@ -783,6 +904,7 @@ function openPartsListPrintWindow({
   parts,
   materials,
   materialGroups,
+  buildStatuses,
   unitPreference,
 }: {
   projectName: string;
@@ -790,6 +912,7 @@ function openPartsListPrintWindow({
   parts: PartNode[];
   materials: MaterialNode[];
   materialGroups: MaterialGroupNode[];
+  buildStatuses: BuildStatusDefinition[];
   unitPreference: UnitPreference;
 }) {
   const reportWindow = window.open("", "web3d-parts-list-report", "width=1200,height=900");
@@ -800,7 +923,7 @@ function openPartsListPrintWindow({
 
   reportWindow.document.open();
   reportWindow.document.write(
-    buildPartsListReportHtml({ projectName, items, parts, materials, materialGroups, unitPreference }),
+    buildPartsListReportHtml({ projectName, items, parts, materials, materialGroups, buildStatuses, unitPreference }),
   );
   reportWindow.document.close();
 }
@@ -811,9 +934,13 @@ function PartsList() {
   const materials = useEditorStore((store) => store.globalMaterialLibrary.materials);
   const materialGroups = useEditorStore((store) => store.globalMaterialLibrary.materialGroups);
   const kerfMm = useEditorStore((store) => store.project.cutSettings.kerfMm);
+  const buildStatuses = useEditorStore((store) => store.project.buildStatuses);
   const unitPreference = useEditorStore((store) => store.project.unitPreference);
   const selectPart = useEditorStore((store) => store.selectPart);
-  const materialSummary = useMemo(() => getMaterialUsageSummary(parts, materials, kerfMm), [kerfMm, parts, materials]);
+  const materialSummary = useMemo(
+    () => getMaterialUsageSummary(parts, materials, kerfMm, { buildStatuses }),
+    [buildStatuses, kerfMm, parts, materials],
+  );
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
   if (!materialSummary.length) {
@@ -833,6 +960,7 @@ function PartsList() {
               parts,
               materials,
               materialGroups,
+              buildStatuses,
               unitPreference,
             })
           }
@@ -847,7 +975,10 @@ function PartsList() {
         const isExpanded = expandedKey === item.key;
         const itemPartIds = new Set(item.partIds);
         const itemParts = parts.filter((part) => itemPartIds.has(part.id));
+        const handledPartIds = new Set(item.handledPartIds);
+        const handledParts = parts.filter((part) => handledPartIds.has(part.id));
         const categoryLabel = getMaterialUsageCategoryLabel(item, materials, materialGroups);
+        const statusBreakdown = formatStatusBreakdown(item.statusCounts, buildStatuses);
         const oversizePartIds = item.cutPlan?.oversizePartIds ?? item.panelPlan?.oversizePartIds ?? [];
         const oversizeParts = oversizePartIds.length > 0
           ? oversizePartIds
@@ -867,6 +998,7 @@ function PartsList() {
                 <small>
                   {categoryLabel} · {item.count} {item.count === 1 ? "piece" : "pieces"}
                 </small>
+                {statusBreakdown ? <small>{statusBreakdown}</small> : null}
               </div>
               <div className="material-summary__total">
                 <strong>
@@ -894,7 +1026,7 @@ function PartsList() {
                 {item.cutPlan ? (
                   <div className="cut-plan">
                     <div className="cut-plan__meta">
-                      Raw stock {formatLength(item.cutPlan.rawStockLengthMm, unitPreference)} · Kerf {formatLength(item.cutPlan.kerfMm, unitPreference)}
+                      Raw stock {formatLength(item.cutPlan.rawStockLengthMm, unitPreference)} · Kerf {formatLength(item.cutPlan.kerfMm, unitPreference)} · {item.plannedPartIds.length} to cut · {item.handledPartIds.length} handled
                     </div>
                     {item.cutPlan.stock.map((stock) => (
                       <div className="cut-plan__stock" key={stock.index}>
@@ -933,12 +1065,28 @@ function PartsList() {
                         ))}
                       </div>
                     ) : null}
+                    {handledParts.length > 0 ? (
+                      <div className="cut-plan__handled">
+                        <strong>Already handled</strong>
+                        {handledParts.map((part) => (
+                          <button
+                            className="cut-plan__cut cut-plan__cut--handled"
+                            key={part.id}
+                            onClick={() => selectPart(part.id)}
+                            type="button"
+                          >
+                            <span>{part.name}</span>
+                            <span>{getBuildStatusLabel(part.buildStatusId, buildStatuses)}</span>
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
                 {item.panelPlan ? (
                   <div className="cut-plan">
                     <div className="cut-plan__meta">
-                      Raw sheet {formatLength(item.panelPlan.rawWidthMm, unitPreference)} × {formatLength(item.panelPlan.rawHeightMm, unitPreference)} · Kerf {formatLength(item.panelPlan.kerfMm, unitPreference)}
+                      Raw sheet {formatLength(item.panelPlan.rawWidthMm, unitPreference)} × {formatLength(item.panelPlan.rawHeightMm, unitPreference)} · Kerf {formatLength(item.panelPlan.kerfMm, unitPreference)} · {item.plannedPartIds.length} to cut · {item.handledPartIds.length} handled
                     </div>
                     {item.panelPlan.stock.map((stock) => (
                       <div className="cut-plan__stock" key={stock.index}>
@@ -977,6 +1125,22 @@ function PartsList() {
                         ))}
                       </div>
                     ) : null}
+                    {handledParts.length > 0 ? (
+                      <div className="cut-plan__handled">
+                        <strong>Already handled</strong>
+                        {handledParts.map((part) => (
+                          <button
+                            className="cut-plan__cut cut-plan__cut--handled"
+                            key={part.id}
+                            onClick={() => selectPart(part.id)}
+                            type="button"
+                          >
+                            <span>{part.name}</span>
+                            <span>{getBuildStatusLabel(part.buildStatusId, buildStatuses)}</span>
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
                 {!item.cutPlan && !item.panelPlan
@@ -1005,6 +1169,7 @@ function PartsList() {
         materials={materials}
         parts={parts}
         projectName={projectName}
+        buildStatuses={buildStatuses}
         unitPreference={unitPreference}
       />
     </div>

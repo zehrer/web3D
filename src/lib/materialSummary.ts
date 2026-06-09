@@ -1,11 +1,12 @@
 import { getObjectTypeLabel } from "./profiles";
-import type { MaterialNode, ObjectType, PartNode } from "../types/model";
+import type { BuildStatusDefinition, MaterialNode, ObjectType, PartNode } from "../types/model";
 
 export type MaterialUsageKind = "linear" | "area";
 
 export type CutPlanCut = {
   partId: string;
   partName: string;
+  buildStatusId: string;
   lengthMm: number;
 };
 
@@ -28,6 +29,7 @@ export type LinearCutPlan = {
 export type PanelPlanCut = {
   partId: string;
   partName: string;
+  buildStatusId: string;
   widthMm: number;
   heightMm: number;
   rotated: boolean;
@@ -66,9 +68,19 @@ export type MaterialUsageItem = {
   kind: MaterialUsageKind;
   totalLengthMm: number;
   totalAreaMm2: number;
+  plannedLengthMm: number;
+  plannedAreaMm2: number;
   partIds: string[];
+  plannedPartIds: string[];
+  handledPartIds: string[];
+  statusCounts: Record<string, number>;
   cutPlan?: LinearCutPlan;
   panelPlan?: PanelCutPlan;
+};
+
+export type MaterialUsageOptions = {
+  buildStatuses?: BuildStatusDefinition[];
+  handledBuildStatusIds?: string[];
 };
 
 const OBJECT_TYPE_SORT_ORDER: Record<ObjectType, number> = {
@@ -131,9 +143,11 @@ export function getMaterialUsageSummary(
   parts: PartNode[],
   materials: MaterialNode[],
   kerfMm = 0,
+  options: MaterialUsageOptions = {},
 ): MaterialUsageItem[] {
   const materialById = new Map(materials.map((m) => [m.id, m]));
   const usageByKey = new Map<string, MaterialUsageItem>();
+  const handledStatusIds = getHandledBuildStatusIds(options.buildStatuses, options.handledBuildStatusIds);
 
   for (const part of parts) {
     const material = part.materialId ? materialById.get(part.materialId) : undefined;
@@ -151,15 +165,34 @@ export function getMaterialUsageSummary(
       kind,
       totalLengthMm: 0,
       totalAreaMm2: 0,
+      plannedLengthMm: 0,
+      plannedAreaMm2: 0,
       partIds: [],
+      plannedPartIds: [],
+      handledPartIds: [],
+      statusCounts: {},
     };
 
     current.count += 1;
     current.partIds.push(part.id);
+    current.statusCounts[part.buildStatusId] = (current.statusCounts[part.buildStatusId] ?? 0) + 1;
+    const isHandled = handledStatusIds.has(part.buildStatusId);
+    if (isHandled) {
+      current.handledPartIds.push(part.id);
+    } else {
+      current.plannedPartIds.push(part.id);
+    }
     if (kind === "linear") {
       current.totalLengthMm += part.size.x;
+      if (!isHandled) {
+        current.plannedLengthMm += part.size.x;
+      }
     } else {
-      current.totalAreaMm2 += getPartAreaMm2(part);
+      const areaMm2 = getPartAreaMm2(part);
+      current.totalAreaMm2 += areaMm2;
+      if (!isHandled) {
+        current.plannedAreaMm2 += areaMm2;
+      }
     }
 
     usageByKey.set(key, current);
@@ -177,7 +210,7 @@ export function getMaterialUsageSummary(
       return;
     }
 
-    const itemParts = item.partIds
+    const itemParts = item.plannedPartIds
       .map((partId) => byPartId.get(partId))
       .filter((part): part is PartNode => Boolean(part));
 
@@ -196,10 +229,28 @@ export function getMaterialUsageSummary(
   });
 }
 
+function getHandledBuildStatusIds(
+  buildStatuses: BuildStatusDefinition[] | undefined,
+  explicitIds: string[] | undefined,
+): Set<string> {
+  if (explicitIds) {
+    return new Set(explicitIds);
+  }
+
+  return new Set(
+    (buildStatuses ?? [])
+      .filter((status) => {
+        const value = `${status.id} ${status.label}`.toLowerCase();
+        return value.includes("ready") || value.includes("prepared") || value.includes("cut") || value.includes("installed") || value.includes("inspected");
+      })
+      .map((status) => status.id),
+  );
+}
+
 function createLinearCutPlan(parts: PartNode[], rawStockLengthMm: number, kerfMm: number): LinearCutPlan {
   const oversizePartIds: string[] = [];
   const cuts = parts
-    .map((part): CutPlanCut => ({ partId: part.id, partName: part.name, lengthMm: part.size.x }))
+    .map((part): CutPlanCut => ({ partId: part.id, partName: part.name, buildStatusId: part.buildStatusId, lengthMm: part.size.x }))
     .filter((cut) => {
       if (cut.lengthMm > rawStockLengthMm) {
         oversizePartIds.push(cut.partId);
@@ -288,6 +339,7 @@ function createPanelCutPlan(parts: PartNode[], rawWidthMm: number, rawHeightMm: 
         shelf.cuts.push({
           partId: part.id,
           partName: part.name,
+          buildStatusId: part.buildStatusId,
           widthMm: match.widthMm,
           heightMm: match.heightMm,
           rotated: match.rotated,
@@ -309,6 +361,7 @@ function createPanelCutPlan(parts: PartNode[], rawWidthMm: number, rawHeightMm: 
           cuts: [{
             partId: part.id,
             partName: part.name,
+            buildStatusId: part.buildStatusId,
             widthMm: match.widthMm,
             heightMm: match.heightMm,
             rotated: match.rotated,
@@ -331,6 +384,7 @@ function createPanelCutPlan(parts: PartNode[], rawWidthMm: number, rawHeightMm: 
           cuts: [{
             partId: part.id,
             partName: part.name,
+            buildStatusId: part.buildStatusId,
             widthMm: first.widthMm,
             heightMm: first.heightMm,
             rotated: first.rotated,
