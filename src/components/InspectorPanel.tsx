@@ -77,6 +77,7 @@ function VectorFields({
   convertFromMm = true,
   columns = 1,
   axes = ["x", "y", "z"],
+  axisLabels,
   disabledAxes = [],
   onChange,
 }: {
@@ -86,6 +87,7 @@ function VectorFields({
   convertFromMm?: boolean;
   columns?: 1 | 2 | 3;
   axes?: ReadonlyArray<keyof Vector3Like>;
+  axisLabels?: Partial<Record<keyof Vector3Like, string>>;
   disabledAxes?: ReadonlyArray<keyof Vector3Like>;
   onChange: (vector: Vector3Like) => void;
 }) {
@@ -100,7 +102,7 @@ function VectorFields({
         {axes.map((axis) => (
           <FieldRow
             key={axis}
-            label={axis.toUpperCase()}
+            label={axisLabels?.[axis] ?? axis.toUpperCase()}
             disabled={disabledAxes.includes(axis)}
             value={convertFromMm ? toDisplayUnits(vector[axis], unitPreference) : vector[axis]}
             onChange={(nextValue) =>
@@ -1127,9 +1129,11 @@ export function InspectorPanel() {
   const unitPreference = state.project.unitPreference;
   const setPartGeometry = state.setPartGeometry;
   const setPartMaterial = state.setPartMaterial;
+  const setPartBuildStatus = state.setPartBuildStatus;
   const createGlobalMaterialFromPart = state.createGlobalMaterialFromPart;
   const updatePart = state.updatePart;
   const projectMaterials = state.globalMaterialLibrary.materials;
+  const buildStatuses = state.project.buildStatuses;
   const createCladdingPattern = state.createCladdingPattern;
   const updateMeasurement = state.updateMeasurement;
   const [patternAxis, setPatternAxis] = useState<keyof Vector3Like>("y");
@@ -1245,6 +1249,21 @@ export function InspectorPanel() {
               </select>
             </label>
 
+            <label className="field inspector-field">
+              <span>Status</span>
+              <select
+                className="field__input"
+                value={selectedPart.buildStatusId}
+                onChange={(event) => setPartBuildStatus(selectedPart.id, event.target.value)}
+              >
+                {buildStatuses.map((status) => (
+                  <option key={status.id} value={status.id}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
             {selectedPart.objectType === "circle" ? (
               <FieldRow
                 label={`Diameter (${UNIT_DEFINITIONS[unitPreference].shortLabel})`}
@@ -1268,6 +1287,7 @@ export function InspectorPanel() {
                 unitPreference={unitPreference}
                 columns={1}
                 axes={["x", "z"]}
+                axisLabels={{ x: "X", z: "Y" }}
                 disabledAxes={(["x", "z"] as Array<keyof Vector3Like>).filter((axis) => isLockedAxis(axis))}
                 onChange={(vector) => setPartGeometry(selectedPart.id, { size: { ...vector, y: 0 } })}
               />
@@ -1287,6 +1307,8 @@ export function InspectorPanel() {
                 vector={selectedPart.size}
                 unitPreference={unitPreference}
                 columns={1}
+                axes={["x", "y", "z"]}
+                axisLabels={{ x: "X", y: "Y", z: "Z" }}
                 disabledAxes={(["x", "y", "z"] as Array<keyof Vector3Like>).filter((axis) => isLockedAxis(axis))}
                 onChange={(vector) => setPartGeometry(selectedPart.id, { size: vector })}
               />

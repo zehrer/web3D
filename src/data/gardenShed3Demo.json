@@ -1,0 +1,5093 @@
+{
+  "id": "a6dcbdb9-30d1-4538-833b-543cd72d08ed",
+  "name": "Garden Shed 3.0  (12mm)",
+  "version": 13,
+  "unitPreference": "metric-cm",
+  "snapSettings": {
+    "enabled": true,
+    "moveIncrement": 10,
+    "resizeIncrement": 5,
+    "rotateIncrementDeg": 15
+  },
+  "gridSettings": {
+    "size": 6000,
+    "originX": 0,
+    "originZ": 0
+  },
+  "cutSettings": {
+    "kerfMm": 3
+  },
+  "cameraState": {
+    "position": {
+      "x": -3907.8139398378116,
+      "y": 5390.330760832993,
+      "z": 7668.0709134921435
+    },
+    "target": {
+      "x": 1028.8636098215711,
+      "y": 1572.2243220655714,
+      "z": 787.6209144317885
+    }
+  },
+  "groups": [
+    {
+      "id": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "name": "LeftSide",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb"
+    },
+    {
+      "id": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "name": "RightSide",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb"
+    },
+    {
+      "id": "2976c647-02d3-4715-a913-6e65c338f413",
+      "name": "BackSide",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb"
+    },
+    {
+      "id": "d68b05ef-96a3-46b5-9486-0926dc19f7ef",
+      "name": "Front",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb"
+    },
+    {
+      "id": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "name": "Roof",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb",
+      "hidden": false
+    },
+    {
+      "id": "a1b7374a-1226-4141-acb5-20a15bd322bb",
+      "name": "Shed",
+      "parentGroupId": null,
+      "hidden": false
+    },
+    {
+      "id": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "name": "LeftCladding",
+      "parentGroupId": "ed56464e-c52e-4d20-99d9-8e4215d5348b"
+    },
+    {
+      "id": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "name": "FrontCladding",
+      "parentGroupId": "ed56464e-c52e-4d20-99d9-8e4215d5348b"
+    },
+    {
+      "id": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "name": "RightCladding",
+      "parentGroupId": "ed56464e-c52e-4d20-99d9-8e4215d5348b"
+    },
+    {
+      "id": "517259e5-1c12-44cf-9f8f-8764cb0aa48c",
+      "name": "Glass",
+      "parentGroupId": "ed56464e-c52e-4d20-99d9-8e4215d5348b",
+      "hidden": false
+    },
+    {
+      "id": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "name": "Film",
+      "parentGroupId": "ed56464e-c52e-4d20-99d9-8e4215d5348b",
+      "hidden": false
+    },
+    {
+      "id": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "name": "Door",
+      "parentGroupId": null,
+      "hidden": false
+    },
+    {
+      "id": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "name": "DoorCladding",
+      "parentGroupId": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "hidden": false
+    },
+    {
+      "id": "ed56464e-c52e-4d20-99d9-8e4215d5348b",
+      "name": "Cladding",
+      "parentGroupId": "a1b7374a-1226-4141-acb5-20a15bd322bb",
+      "hidden": false
+    },
+    {
+      "id": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "name": "Roofing",
+      "parentGroupId": "22a25c7c-942a-475c-9910-ef8d5846ed81"
+    }
+  ],
+  "parts": [
+    {
+      "id": "ba4b14d7-6f02-4405-9413-f024d369ae20",
+      "name": "LeftBack",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 100,
+        "y": 100,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "0e677d68-ae51-4592-a3ac-38b2031cb01e",
+      "name": "LeftFront",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 100,
+        "y": 100,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "5c641b3a-06e9-4324-8a51-cff288be2622",
+      "name": "LeftTop",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 100,
+        "y": 2110,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "630346b8-d67c-4e7b-a4f8-c9f978d44e68",
+      "name": "RightBack",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 2200,
+        "y": 100,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "35ccd0c3-29b5-4e1a-baa1-0b6a9c20cc01",
+      "name": "LeftBotton",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 100,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "3bd92cdd-5f30-4243-af77-827c570a74f1",
+      "name": "RightBottom",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 2200,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "ed85d50e-eae9-48cd-9af4-dcd2914c134f",
+      "name": "RightFront",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 2200,
+        "y": 100,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "26b0c377-8e4c-4d19-946c-650ec44010b7",
+      "name": "RightTop",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 2200,
+        "y": 2110,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "4682d09b-9b2f-4bae-b12e-d641983885d1",
+      "name": "BackTop",
+      "objectType": "timber",
+      "size": {
+        "x": 2200,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 0,
+        "y": 2010,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "2976c647-02d3-4715-a913-6e65c338f413",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "59a07a10-44f7-4b0c-a59c-6deff38e7209",
+      "name": "FrontBottom",
+      "objectType": "timber",
+      "size": {
+        "x": 1300,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 800,
+        "y": 0,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "d68b05ef-96a3-46b5-9486-0926dc19f7ef",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1fc4794d-abd9-408d-9a99-36fb63e9d03e",
+      "name": "FrontTop",
+      "objectType": "timber",
+      "size": {
+        "x": 2200,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 0,
+        "y": 2010,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "d68b05ef-96a3-46b5-9486-0926dc19f7ef",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "13b0f54e-93fd-4e86-870d-327edda22f90",
+      "name": "FrontLeft",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 900,
+        "y": 100,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "d68b05ef-96a3-46b5-9486-0926dc19f7ef",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "cc678a2b-a2d5-43e6-a9c1-0e71f6f2687a",
+      "name": "RoofTimber3",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 1850,
+        "y": 2110,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c7df0682-75be-4794-90b6-b18dfa0c1dd9",
+      "name": "RoofTimber1",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 650,
+        "y": 2110,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "cb9a1946-8333-408c-a89f-a2543d7791d6",
+      "name": "RoofTimber2",
+      "objectType": "timber",
+      "size": {
+        "x": 850,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 1250,
+        "y": 2110,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2f7f305d-3ffe-4169-8cc5-031d6e37969a",
+      "name": "RoofSheet2",
+      "objectType": "sheet",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "size": {
+        "x": 850,
+        "y": 600,
+        "z": 15
+      },
+      "position": {
+        "x": 600,
+        "y": 2225,
+        "z": 850
+      },
+      "rotation": {
+        "x": 1.5707963267948972,
+        "y": -1.6653345369377348e-16,
+        "z": -1.5707963267948966
+      },
+      "color": "#caa165",
+      "materialId": "b5dd5fd1-c44d-4899-a502-8621fbee3fda",
+      "thicknessMm": 15,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "a010ac13-605a-4fba-846c-674d131fdb77",
+      "name": "RoofSheet1",
+      "objectType": "sheet",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "size": {
+        "x": 850,
+        "y": 600,
+        "z": 15
+      },
+      "position": {
+        "x": 0,
+        "y": 2225,
+        "z": 850
+      },
+      "rotation": {
+        "x": 1.5707963267948972,
+        "y": -1.6653345369377348e-16,
+        "z": -1.5707963267948966
+      },
+      "color": "#caa165",
+      "materialId": "b5dd5fd1-c44d-4899-a502-8621fbee3fda",
+      "thicknessMm": 15,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b26d0980-2c5d-44a9-8a0e-6c44a1e5f82a",
+      "name": "RoofSheet3",
+      "objectType": "sheet",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "size": {
+        "x": 850,
+        "y": 600,
+        "z": 15
+      },
+      "position": {
+        "x": 1200,
+        "y": 2230,
+        "z": 850
+      },
+      "rotation": {
+        "x": 1.5707963267948972,
+        "y": -1.6653345369377348e-16,
+        "z": -1.5707963267948966
+      },
+      "color": "#caa165",
+      "materialId": "b5dd5fd1-c44d-4899-a502-8621fbee3fda",
+      "thicknessMm": 15,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "d8734e30-3f72-47db-99e8-77f6f128a5e3",
+      "name": "RoofSheet4",
+      "objectType": "sheet",
+      "groupId": "22a25c7c-942a-475c-9910-ef8d5846ed81",
+      "size": {
+        "x": 850,
+        "y": 400,
+        "z": 15
+      },
+      "position": {
+        "x": 1800,
+        "y": 2230,
+        "z": 850
+      },
+      "rotation": {
+        "x": 1.5707963267948972,
+        "y": -1.6653345369377348e-16,
+        "z": -1.5707963267948966
+      },
+      "color": "#caa165",
+      "materialId": "b5dd5fd1-c44d-4899-a502-8621fbee3fda",
+      "thicknessMm": 15,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "53ee87cb-79e4-405f-9037-be1a0f2dff0d",
+      "name": "LC0 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 2120,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8bb6d17f-ceec-41fc-8c32-19137a41b5b0",
+      "name": "LC0 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 2040,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8e370f44-c1ed-434a-bbb4-557ee1e21874",
+      "name": "LC4",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1960,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "663a9620-2105-4a41-80d4-b61b2c10d305",
+      "name": "FC1",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 2230,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 2200,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1a65c2a2-1c38-4ef8-a8ea-009002fd53ea",
+      "name": "FC2",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 2230,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 2120,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "7252f1c0-8a97-468e-a0d0-f2367677fcc8",
+      "name": "RC0 Pattern 1",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 2200,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "402787b5-781c-41fd-b816-46d3ef1f273c",
+      "name": "RC0 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 2120,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2eddd7e3-356a-4bcc-aa7a-9064478daa66",
+      "name": "RC0 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 2040,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "17c27b30-be29-4077-9950-242ab04667ba",
+      "name": "RC0 Pattern 4",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1960,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b08c9d35-979a-440a-beb0-222acd70965c",
+      "name": "RC0 Pattern 10",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1480,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "6f7ee0a3-f281-4a1d-aadb-6d3caf52670e",
+      "name": "RC0 Pattern 11",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1400,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "4298d8e4-166e-41ab-aff1-0a0a21faf8a4",
+      "name": "RC0 Pattern 12",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1320,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "a16c7856-67d9-4596-a31a-bc86aa6cd524",
+      "name": "RC0 Pattern 13",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1240,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b5ec0388-3fe9-4aef-bac8-d5e8160aaa09",
+      "name": "RC0 Pattern 14",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1160,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "6388db0f-2a6b-448c-a83d-94da75f6ce68",
+      "name": "RC0 Pattern 15",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1080,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b47add34-f0b9-45fc-9db7-619dcead11ce",
+      "name": "RC0 Pattern 16",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 1000,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c070d391-b953-445e-9fc7-3040265df387",
+      "name": "RC0 Pattern 17",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 920,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c5eb467c-4d47-4334-a378-89d51049e20e",
+      "name": "RC0 Pattern 18",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 840,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "7e145587-98e9-4b45-ac17-0cb4fc4920a7",
+      "name": "RC0 Pattern 19",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 760,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "f40b5299-5e4b-4321-977f-06fccea5f42e",
+      "name": "RC0 Pattern 20",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 680,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "28144b24-d156-4b59-b709-f996fff633e6",
+      "name": "RC0 Pattern 21",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 600,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "aea22e71-2578-44d6-b08f-809f7765aee0",
+      "name": "RC0 Pattern 22",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 520,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8ce82d5d-0ff2-4095-b2b3-4f697d06e2ed",
+      "name": "RC0 Pattern 23",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 440,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "6dfa4acc-365d-427c-b2d6-b57774503861",
+      "name": "RC0 Pattern 24",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 360,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "bb4cc704-aa3d-46f1-8658-4ef0f69a1981",
+      "name": "RC0 Pattern 25",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 280,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1d6ebbe1-215a-4d7e-9414-6655cf50c335",
+      "name": "RC0 Pattern 26",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 200,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "81c66e60-c673-45f9-961d-26a47585840d",
+      "name": "RC0 Pattern 27",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 120,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "88a2a468-eb92-49f1-bcae-240982d4f592",
+      "name": "RC0 Pattern 28",
+      "objectType": "cladding",
+      "groupId": "54e0232a-a64f-4b7e-9c71-f79e5e60b5e1",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 2220,
+        "y": 40,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1b665d1a-91c8-4643-a653-3d1d69bcd4bc",
+      "name": "LC4 Pattern 6",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1480,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "103fcf55-e7fd-4b8f-a6a1-dc903c536289",
+      "name": "LC4 Pattern 7",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1400,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "50063f4a-bbaf-4ee2-a31f-be2d4cae9e13",
+      "name": "LC4 Pattern 8",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1320,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "bfa2692a-ab0a-4c48-8dcd-90c766740e01",
+      "name": "LC4 Pattern 9",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1240,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b9b7ecdd-d8a8-4b7d-863c-4f3396824f1e",
+      "name": "LC4 Pattern 10",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1160,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "dc83af51-9cdb-4399-b38f-bc0d96724b46",
+      "name": "LC4 Pattern 11",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1080,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "a1e7a664-36e8-4e38-8c60-a1f1e8db5592",
+      "name": "LC4 Pattern 12",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 1000,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "9777c8b7-945d-434d-965d-7d5e90f7fad7",
+      "name": "LC4 Pattern 13",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 920,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2a272315-a752-44bd-838c-6517974262b5",
+      "name": "LC4 Pattern 14",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 840,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "dc989f88-dc99-49bd-a5ad-2942ffc39177",
+      "name": "LC4 Pattern 15",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 760,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2aa36469-8da4-43f9-ab21-7bca82736890",
+      "name": "LC4 Pattern 16",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 680,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "7cceb5bd-228e-4fdc-b9ab-f31a90b251fe",
+      "name": "LC4 Pattern 17",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 600,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "66ffd6c9-197a-4ca2-9608-068ddb477cf6",
+      "name": "LC4 Pattern 18",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 520,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c44452c7-d13a-41e1-9c00-05da51771182",
+      "name": "LC4 Pattern 19",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 440,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "f9bd4cba-f942-4adb-ae86-22c21e50cceb",
+      "name": "LC4 Pattern 20",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 360,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "e1de6229-8987-4617-abfd-7bc7d8562bdf",
+      "name": "LC4 Pattern 21",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 280,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "d8e8a46e-ff39-4fe1-a44d-7e809329526b",
+      "name": "LC4 Pattern 22",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 200,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "7cc8e558-56e3-4d17-ab9b-cbe2909a5739",
+      "name": "LC4 Pattern 23",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 120,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c6899246-7c3b-4d9a-a110-ddc300588c2b",
+      "name": "LC4 Pattern 24",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 40,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "225c3cdc-8af2-4c4f-837a-16041b10d907",
+      "name": "FLC1 Pattern 1",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1880,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "d83946bf-8096-4c0a-9a0d-4d272e5b6614",
+      "name": "FLC1 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1800,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1794f835-7ad6-4891-ab5a-9128391da346",
+      "name": "FLC1 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1720,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "f1df9382-8c8d-46c9-8936-2e495fd3a0e1",
+      "name": "FLC1 Pattern 4",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1640,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "52ad4bcd-1222-4ed0-8b02-6de321aa1fe3",
+      "name": "FLC1 Pattern 5",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1560,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "df7775be-90a3-46f2-a2f8-da2f483d3e4b",
+      "name": "FLC1 Pattern 6",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1480,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "dd2970c4-d790-42c7-a48d-2bac84d30c59",
+      "name": "FLC1 Pattern 7",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1400,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "dca44e5e-6992-49c5-b25b-8b38f785524e",
+      "name": "FLC1 Pattern 8",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1320,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "0c8a8cec-9aed-4bfa-88bc-470c2d9310d1",
+      "name": "FLC1 Pattern 9",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1240,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "580a9a45-df61-4d75-a5d2-f6bc57fbf272",
+      "name": "FLC1 Pattern 10",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1160,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "a2abf4bc-c1d1-4c56-88c2-a544d6d2a008",
+      "name": "FLC1 Pattern 11",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1080,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8fb0efd2-3194-44c3-b8b8-018465d6afbd",
+      "name": "FLC1 Pattern 12",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1000,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c15f5a83-8e6f-4fc5-a030-d55110c39062",
+      "name": "FLC1 Pattern 13",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 920,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c41f6bf4-9348-489d-9499-599ea087ae32",
+      "name": "FLC1 Pattern 14",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 840,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "ced6d4e1-f886-4b2d-8864-dbf7afda9e9b",
+      "name": "FLC1 Pattern 15",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 760,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1d5a6db1-e20c-4c02-a558-ede4be20b5f3",
+      "name": "FLC1 Pattern 16",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 680,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "bbc16147-c898-4bdd-bcfe-28bde402ed17",
+      "name": "FLC1 Pattern 17",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 600,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b79b2bae-3afc-461c-a754-ee1a25204697",
+      "name": "FLC1 Pattern 18",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 520,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1ec11f16-9e2e-4fc7-89c9-c72e731bde7d",
+      "name": "FLC1 Pattern 19",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 440,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "4d72d72f-7a81-45a6-a431-e851024f3d58",
+      "name": "FLC20",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 360,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "f29c3b91-db0e-46a5-9885-eed24df783bf",
+      "name": "FLC20 Pattern 1",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 280,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "04888451-3e91-42c1-bf67-7de0a4cbfb06",
+      "name": "FLC20 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 200,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "91f92859-c7d1-49ae-b7b4-a12265eee9d5",
+      "name": "FLC20 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 120,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "75384e08-335f-4763-b1f1-426bad6ee35b",
+      "name": "FLC20 Pattern 4",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 120,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 40,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "995cbaaa-38ee-40a1-8096-81f49aa6c8ec",
+      "name": "FRC0 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1880,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "fac8da2d-5872-4088-ab8b-ffcb7e1da58b",
+      "name": "FRC0 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1800,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "f3dda039-3a42-402c-997b-51b5d6ed0a8a",
+      "name": "FRC0 Pattern 4",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1720,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "a5447f79-39fa-4aac-9bee-7d9985bee19b",
+      "name": "FRC0 Pattern 5",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1640,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b3a9e8fe-f710-43f7-8ae2-1b417f384cb5",
+      "name": "FRC0 Pattern 6",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1560,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2ac273f9-ecb5-4101-b8e9-f1d9519dae92",
+      "name": "FRC0 Pattern 7",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1480,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "793cb5dd-676f-4a3a-b092-69bfcac56701",
+      "name": "FRC0 Pattern 8",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1400,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8568119f-526c-4488-8b96-f2cae5bdf273",
+      "name": "FRC0 Pattern 9",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1320,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "58916596-0646-4d61-9b3e-76115166cc4f",
+      "name": "FRC0 Pattern 10",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1240,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b1b12302-4f4c-4fa0-878d-8be3cb0e4a7e",
+      "name": "FRC0 Pattern 11",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1160,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "faf8ae6f-94c8-4ff5-9be8-17de2cfbb96f",
+      "name": "FRC0 Pattern 12",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1080,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2e9ab364-f1ba-4e43-86af-475a788ac6c4",
+      "name": "FRC0 Pattern 13",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 1000,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "bc64053d-33d1-4343-b262-ae7ec14ac0c8",
+      "name": "FRC0 Pattern 14",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 920,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "0d727781-949d-4816-8737-0b28e68a6a51",
+      "name": "FRC0 Pattern 15",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 840,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "677bba96-bd2c-4eab-aa1c-88776870126d",
+      "name": "FRC0 Pattern 16",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 760,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "ffdef8db-353f-4eb6-b2aa-957856f5bd85",
+      "name": "FRC0 Pattern 17",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 680,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "13c53f0c-a258-477a-be28-c758413c381b",
+      "name": "FRC0 Pattern 18",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 600,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "e042b0dd-0e8d-48b4-ba7b-48f55750fc4b",
+      "name": "FRC0 Pattern 19",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 520,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "987f6289-7ec0-4881-a2a0-5a14f5309f4b",
+      "name": "FRC0 Pattern 20",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 440,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "5087eae7-59fd-4cf4-8262-cf9bb01a1e87",
+      "name": "FRC0 Pattern 21",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 360,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8312e5ee-6c44-4f43-8bd9-a9868a7a7f32",
+      "name": "FRC0 Pattern 22",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 280,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "50170781-8292-452b-b70c-e9cb5d412497",
+      "name": "FRC0 Pattern 23",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 200,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "cc20de43-74d4-432d-b12c-f9f2070706d2",
+      "name": "FRC0 Pattern 24",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 120,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b7f80755-14f8-4dae-8836-c9ee72987715",
+      "name": "GlassL",
+      "objectType": "glass",
+      "groupId": "517259e5-1c12-44cf-9f8f-8764cb0aa48c",
+      "size": {
+        "x": 850,
+        "y": 410,
+        "z": 5
+      },
+      "position": {
+        "x": 0,
+        "y": 1550,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#86cfff",
+      "materialId": "a0355855-79ae-471d-a823-55a8928c3964",
+      "thicknessMm": 3,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "6041fe59-9ba4-486b-94f4-e493e4cacc96",
+      "name": "GlassR",
+      "objectType": "glass",
+      "groupId": "517259e5-1c12-44cf-9f8f-8764cb0aa48c",
+      "size": {
+        "x": 850,
+        "y": 410,
+        "z": 5
+      },
+      "position": {
+        "x": 2210,
+        "y": 1550,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#86cfff",
+      "materialId": "a0355855-79ae-471d-a823-55a8928c3964",
+      "thicknessMm": 3,
+      "lockedAxes": {
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "73d20543-94d0-45a6-8fc7-c843ac88cabe",
+      "name": "LFolieB",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 1530,
+        "y": 0,
+        "z": 850
+      },
+      "position": {
+        "x": 0,
+        "y": 10,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "bc1274d4-66c8-40dc-a67d-08c23c212c72",
+      "name": "LFolieT",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 290,
+        "y": 0,
+        "z": 850
+      },
+      "position": {
+        "x": 0,
+        "y": 1960,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2644d6a6-98b6-4613-982f-21368a0b1979",
+      "name": "FFolieL",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 2180,
+        "y": 0,
+        "z": 1300
+      },
+      "position": {
+        "x": 900,
+        "y": 10,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "020eeb90-3232-4c71-9fb7-a5ecd15abc42",
+      "name": "FRC0 Pattern 24 Copy",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 1410,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 800,
+        "y": 40,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2cff51ed-cec5-40ba-b320-a2022b7e6306",
+      "name": "FFolieT",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 150,
+        "y": 0,
+        "z": 2200
+      },
+      "position": {
+        "x": 0,
+        "y": 2110,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "fa6b8536-202a-40f9-adcf-e2dd02adbe47",
+      "name": "RFolieT",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 290,
+        "y": 0,
+        "z": 850
+      },
+      "position": {
+        "x": 2200,
+        "y": 1960,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "fe3a87be-4c48-453b-b1d7-394acfb28cf0",
+      "name": "RFolieB",
+      "objectType": "rectangle",
+      "groupId": "0a0f7754-ea84-4c53-821e-df48bd851c29",
+      "size": {
+        "x": 1530,
+        "y": 0,
+        "z": 850
+      },
+      "position": {
+        "x": 2200,
+        "y": 10,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "36d8ff8b-cf95-41f2-b9e3-746eb2d89f88",
+      "name": "WindowTimber",
+      "objectType": "timber",
+      "size": {
+        "x": 650,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 100,
+        "y": 1450,
+        "z": 100
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "c3774b34-d046-431a-a33e-480eb9e93b8f",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b818b56b-3e9d-41b6-9d8f-2acf405645e0",
+      "name": "WindowTimber",
+      "objectType": "timber",
+      "size": {
+        "x": 650,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 2200,
+        "y": 1450,
+        "z": 100
+      },
+      "rotation": {
+        "x": 0,
+        "y": -1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "groupId": "f1c11835-422f-44ce-9b47-21a2cb205267",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "939b4cd3-090a-4325-88bb-523bd2d5e361",
+      "name": "FrontLeft Copy",
+      "objectType": "timber",
+      "size": {
+        "x": 1910,
+        "y": 100,
+        "z": 100
+      },
+      "position": {
+        "x": 1550,
+        "y": 100,
+        "z": 750
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "groupId": "d68b05ef-96a3-46b5-9486-0926dc19f7ef",
+      "materialId": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "ac52ea03-e04a-4571-8d98-d1d2faf9f41b",
+      "name": "Bottom",
+      "objectType": "timber",
+      "groupId": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "size": {
+        "x": 680,
+        "y": 56,
+        "z": 56
+      },
+      "position": {
+        "x": 110,
+        "y": 0,
+        "z": 790
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "materialId": "6015a0c1-2862-498b-999d-7e8756fe34f2",
+      "crossSectionWidthMm": 56,
+      "crossSectionHeightMm": 56,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "hidden": false,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "2f090b2c-f643-415e-b4be-afbecae9eab4",
+      "name": "Top",
+      "objectType": "timber",
+      "groupId": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "size": {
+        "x": 680,
+        "y": 56,
+        "z": 56
+      },
+      "position": {
+        "x": 110,
+        "y": 1896,
+        "z": 790
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "materialId": "6015a0c1-2862-498b-999d-7e8756fe34f2",
+      "crossSectionWidthMm": 56,
+      "crossSectionHeightMm": 56,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "hidden": false,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "fe2f6a1d-47af-4529-a3a6-b4f1c40ce4b9",
+      "name": "Left",
+      "objectType": "timber",
+      "groupId": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "size": {
+        "x": 1840,
+        "y": 56,
+        "z": 56
+      },
+      "position": {
+        "x": 110,
+        "y": 56,
+        "z": 790
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "materialId": "6015a0c1-2862-498b-999d-7e8756fe34f2",
+      "crossSectionWidthMm": 56,
+      "crossSectionHeightMm": 56,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "108dacc0-ad3a-42fc-95e9-4e1dfc041873",
+      "name": "Right",
+      "objectType": "timber",
+      "groupId": "84ce3f1d-b04f-4171-962e-6681cdeb93e4",
+      "size": {
+        "x": 1840,
+        "y": 56,
+        "z": 56
+      },
+      "position": {
+        "x": 734,
+        "y": 56,
+        "z": 790
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 1.5707963267948966
+      },
+      "color": "#a77b4e",
+      "materialId": "6015a0c1-2862-498b-999d-7e8756fe34f2",
+      "crossSectionWidthMm": 56,
+      "crossSectionHeightMm": 56,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "e4b9ea86-b71a-42dd-93f1-9c2c628a78ec",
+      "name": "DC0 Pattern 2",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1880,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b970bc1f-5caf-4f0e-bcf4-673d881d9fb5",
+      "name": "DC0 Pattern 3",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1800,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "ef65d25f-e74f-431e-915a-0f514047c311",
+      "name": "DC0 Pattern 4",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1720,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b965e458-ba1f-46e7-a588-ef9c0309bec0",
+      "name": "DC0 Pattern 5",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1640,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "9baa9e05-6560-4a38-98b0-e681971268d0",
+      "name": "DC0 Pattern 6",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1560,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "5a5e696c-6df7-4e88-a490-40771ba76c88",
+      "name": "DC0 Pattern 7",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1480,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "25bf40c6-ae71-4b7d-9ddd-5fd3018229ed",
+      "name": "DC0 Pattern 8",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1400,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "5b689481-d49a-4da6-ae7b-7a20e2d3cebb",
+      "name": "DC0 Pattern 9",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1320,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "b194f61a-f8f8-4715-9be0-9dfb63361743",
+      "name": "DC0 Pattern 10",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1240,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "37b6ac24-203d-4ed8-a669-6230b619499d",
+      "name": "DC0 Pattern 11",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1160,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "1fd5fd64-035c-4adb-8d70-5324ffb143e3",
+      "name": "DC0 Pattern 12",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1080,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "05d3be56-642e-47d4-b553-913c12344d10",
+      "name": "DC0 Pattern 13",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 1000,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "cd120e0f-04b4-43e7-ad6a-8faa21e3ffeb",
+      "name": "DC0 Pattern 14",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 920,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "491c56ad-7f60-4dcf-903a-ff99a8e9a1dd",
+      "name": "DC0 Pattern 15",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 840,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "cf881b4e-e625-4131-97bf-74135239e2b6",
+      "name": "DC0 Pattern 16",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 760,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "326b5422-a64e-4b27-875d-b00633a432b6",
+      "name": "DC0 Pattern 17",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 680,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "11ca0c86-f0ec-4605-85c9-e571aa350f0b",
+      "name": "DC0 Pattern 18",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 600,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "fc6bd51c-051b-4e6a-8cb6-345f0207f679",
+      "name": "DC0 Pattern 19",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 520,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "3805baee-5b53-4c39-bcc5-272c8efead53",
+      "name": "DC0 Pattern 20",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 440,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "4b26c5a5-ee52-4ddb-af37-7f22fb3440b1",
+      "name": "DC0 Pattern 21",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 360,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "c94a988f-414a-4bef-963e-ff3049855e24",
+      "name": "DC0 Pattern 22",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 280,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "18df1d97-f09c-436b-8669-1aa85d03c648",
+      "name": "DC0 Pattern 23",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 200,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "28d3f953-71ff-482c-a928-c9718c585595",
+      "name": "DC0 Pattern 24",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 120,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "53a3a01a-baad-42b2-a96f-8238ff480866",
+      "name": "DC0 Pattern 25",
+      "objectType": "cladding",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 681,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 110,
+        "y": 40,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "4151faef-7540-4b54-b4e8-d88bfa4f80e9",
+      "name": "Folie",
+      "objectType": "rectangle",
+      "groupId": "39394102-cd82-46b7-b939-9700f0065a9d",
+      "size": {
+        "x": 1930,
+        "y": 0,
+        "z": 681
+      },
+      "position": {
+        "x": 110,
+        "y": 10,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 1.5707963267948963
+      },
+      "color": "#000000",
+      "materialId": null,
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "36927fec-fe62-44f5-9d9b-5139dd6ff67f",
+      "name": "RoofF",
+      "objectType": "timber",
+      "groupId": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "materialId": "73fc5cee-208a-4c0d-a15f-7d6d623b7a56",
+      "size": {
+        "x": 2200,
+        "y": 33,
+        "z": 33
+      },
+      "position": {
+        "x": 0,
+        "y": 2230,
+        "z": 817
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "crossSectionWidthMm": 33,
+      "crossSectionHeightMm": 33,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "7aeb06f6-8eb8-4327-998d-abf787f8d35d",
+      "name": "RoofB",
+      "objectType": "timber",
+      "groupId": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "materialId": "73fc5cee-208a-4c0d-a15f-7d6d623b7a56",
+      "size": {
+        "x": 2200,
+        "y": 33,
+        "z": 33
+      },
+      "position": {
+        "x": 0,
+        "y": 2230,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "crossSectionWidthMm": 33,
+      "crossSectionHeightMm": 33,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "0f84a46b-045f-494f-9f25-bb878205b36b",
+      "name": "RoofL",
+      "objectType": "timber",
+      "groupId": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "materialId": "73fc5cee-208a-4c0d-a15f-7d6d623b7a56",
+      "size": {
+        "x": 784,
+        "y": 33,
+        "z": 33
+      },
+      "position": {
+        "x": 0,
+        "y": 2230,
+        "z": 817
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "crossSectionWidthMm": 33,
+      "crossSectionHeightMm": 33,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "56536bdb-cc12-4d00-b44f-1dd6be126264",
+      "name": "RoofR",
+      "objectType": "timber",
+      "groupId": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "materialId": "73fc5cee-208a-4c0d-a15f-7d6d623b7a56",
+      "size": {
+        "x": 784,
+        "y": 33,
+        "z": 33
+      },
+      "position": {
+        "x": 2167,
+        "y": 2230,
+        "z": 817
+      },
+      "rotation": {
+        "x": 0,
+        "y": 1.5707963267948966,
+        "z": 0
+      },
+      "color": "#a77b4e",
+      "crossSectionWidthMm": 33,
+      "crossSectionHeightMm": 33,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "759356df-087b-4254-9145-4fd24795b8d6",
+      "name": "LC0 Pattern 2 Copy",
+      "objectType": "cladding",
+      "groupId": "8e5f5f85-21ca-405c-a474-5822d1c263c0",
+      "size": {
+        "x": 850,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": 0,
+        "y": 2200,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 4.71238898038469,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "110c5b4a-0aed-4641-858a-118c575033a6",
+      "name": "FC2 Copy",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 2230,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 2040,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "8b4025e5-e41b-4189-9da8-a9da107f8c5b",
+      "name": "FC2 Copy Copy",
+      "objectType": "cladding",
+      "groupId": "0e6b0be1-22b8-45c2-b06e-7fa14c909640",
+      "size": {
+        "x": 2230,
+        "y": 68,
+        "z": 19
+      },
+      "position": {
+        "x": -20,
+        "y": 1960,
+        "z": 850
+      },
+      "rotation": {
+        "x": 0,
+        "y": -4.440892098500626e-16,
+        "z": 0
+      },
+      "color": "#9a7958",
+      "materialId": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      },
+      "buildStatusId": "planned"
+    },
+    {
+      "id": "9f2a2c85-498f-494d-9bbc-38e8aa83c1ff",
+      "name": "Roofing Membrane",
+      "objectType": "rectangle",
+      "groupId": "06fb818b-6ab9-4c18-b7f7-e64542c9ee10",
+      "materialId": "b04354dd-b9ad-4d7f-a2eb-82b80c4d23c9",
+      "buildStatusId": "planned",
+      "size": {
+        "x": 2200,
+        "y": 0,
+        "z": 800
+      },
+      "position": {
+        "x": 0,
+        "y": 2230,
+        "z": 30
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "color": "#000000",
+      "lockedAxes": {
+        "y": true
+      }
+    }
+  ],
+  "measurements": [],
+  "materialGroups": [
+    {
+      "id": "e5a6dee7-79e0-4199-bdc7-95af83c2213f",
+      "name": "Timber",
+      "parentGroupId": null
+    },
+    {
+      "id": "47e3d109-42b9-419d-8ba4-a0c84169ffde",
+      "name": "Sheet",
+      "parentGroupId": null
+    },
+    {
+      "id": "f36f2cf6-60ae-47a6-bb7e-a2d9299716ee",
+      "name": "Rhombus",
+      "parentGroupId": null
+    },
+    {
+      "id": "b867f3e1-4cf4-4da3-8e40-32b16f8ea577",
+      "name": "Glass",
+      "parentGroupId": null
+    },
+    {
+      "id": "51592514-21cd-4a69-a5b5-bd5cfdd2adcf",
+      "name": "Other",
+      "parentGroupId": null
+    }
+  ],
+  "materials": [
+    {
+      "id": "6015a0c1-2862-498b-999d-7e8756fe34f2",
+      "name": "56 x 56 mm",
+      "groupId": "e5a6dee7-79e0-4199-bdc7-95af83c2213f",
+      "objectType": "timber",
+      "color": "#a77b4e",
+      "defaultSize": {
+        "x": 2000,
+        "y": 56,
+        "z": 56
+      },
+      "crossSectionWidthMm": 56,
+      "crossSectionHeightMm": 56,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      }
+    },
+    {
+      "id": "baf1a426-c7ac-4e16-ae32-794d31238981",
+      "name": "100 x 100 mm",
+      "groupId": "e5a6dee7-79e0-4199-bdc7-95af83c2213f",
+      "objectType": "timber",
+      "color": "#a77b4e",
+      "defaultSize": {
+        "x": 2500,
+        "y": 100,
+        "z": 100
+      },
+      "crossSectionWidthMm": 100,
+      "crossSectionHeightMm": 100,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      }
+    },
+    {
+      "id": "b5dd5fd1-c44d-4899-a502-8621fbee3fda",
+      "name": "OSB/3 15 mm",
+      "groupId": "47e3d109-42b9-419d-8ba4-a0c84169ffde",
+      "objectType": "sheet",
+      "color": "#caa165",
+      "defaultSize": {
+        "x": 1200,
+        "y": 600,
+        "z": 15
+      },
+      "thicknessMm": 15,
+      "lockedAxes": {
+        "z": true
+      }
+    },
+    {
+      "id": "b8d6345e-79da-4968-9641-1c3bd3168203",
+      "name": "19 x 68 mm",
+      "groupId": "f36f2cf6-60ae-47a6-bb7e-a2d9299716ee",
+      "objectType": "cladding",
+      "color": "#9a7958",
+      "defaultSize": {
+        "x": 5000,
+        "y": 68,
+        "z": 19
+      },
+      "crossSectionWidthMm": 68,
+      "crossSectionHeightMm": 19,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      }
+    },
+    {
+      "id": "a0355855-79ae-471d-a823-55a8928c3964",
+      "name": "Plexiglass 3 mm",
+      "groupId": "b867f3e1-4cf4-4da3-8e40-32b16f8ea577",
+      "objectType": "glass",
+      "color": "#86cfff",
+      "defaultSize": {
+        "x": 900,
+        "y": 600,
+        "z": 3
+      },
+      "thicknessMm": 3,
+      "lockedAxes": {
+        "z": true
+      }
+    },
+    {
+      "id": "b04354dd-b9ad-4d7f-a2eb-82b80c4d23c9",
+      "name": "Folie",
+      "groupId": "51592514-21cd-4a69-a5b5-bd5cfdd2adcf",
+      "objectType": "rectangle",
+      "color": "#000000",
+      "defaultSize": {
+        "x": 1000,
+        "y": 0,
+        "z": 1000
+      },
+      "lockedAxes": {
+        "y": true
+      }
+    },
+    {
+      "id": "73fc5cee-208a-4c0d-a15f-7d6d623b7a56",
+      "name": "33 x 33 mm",
+      "groupId": "e5a6dee7-79e0-4199-bdc7-95af83c2213f",
+      "objectType": "timber",
+      "color": "#a77b4e",
+      "defaultSize": {
+        "x": 2000,
+        "y": 33,
+        "z": 33
+      },
+      "crossSectionWidthMm": 33,
+      "crossSectionHeightMm": 33,
+      "lockedAxes": {
+        "y": true,
+        "z": true
+      }
+    }
+  ],
+  "createdAt": "2026-05-14T16:35:20.142Z",
+  "updatedAt": "2026-06-09T14:51:59.313Z",
+  "variables": [],
+  "buildStatuses": [
+    {
+      "id": "planned",
+      "label": "Planned"
+    },
+    {
+      "id": "material-ready",
+      "label": "Material Ready"
+    },
+    {
+      "id": "installed",
+      "label": "Installed"
+    },
+    {
+      "id": "inspected",
+      "label": "Inspected"
+    }
+  ]
+}

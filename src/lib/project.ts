@@ -11,8 +11,9 @@ import {
   getDefaultProfileId,
   getProfileById,
 } from "./profiles";
-import gardenShedDemo from "../data/gardenShedDemo.json";
+import gardenShed3Demo from "../data/gardenShed3Demo.json";
 import type {
+  BuildStatusDefinition,
   GroupNode,
   MaterialGroupNode,
   MaterialNode,
@@ -25,17 +26,24 @@ import type {
   Vector3Like,
 } from "../types/model";
 
-export const PROJECT_SCHEMA_VERSION = 11;
+export const PROJECT_SCHEMA_VERSION = 13;
 export const DEFAULT_GRID_SETTINGS = { size: 6000, originX: 0, originZ: 0 };
 export const DEFAULT_CUT_SETTINGS = { kerfMm: 3 };
+export const DEFAULT_BUILD_STATUS_ID = "planned";
+export const DEFAULT_BUILD_STATUSES: BuildStatusDefinition[] = [
+  { id: DEFAULT_BUILD_STATUS_ID, label: "Planned" },
+  { id: "material-ready", label: "Material Ready" },
+  { id: "installed", label: "Installed" },
+  { id: "inspected", label: "Inspected" },
+];
 export const DEFAULT_WORKSPACE_FOCUS_XZ = 900;
 export const DEFAULT_CAMERA_HEIGHT = 160;
 
-// Demo JSON predates the v9 schema and still carries profileId on its parts.
-// We narrow it locally to a legacy shape so createDemoParts can read it.
+const bundledDemoProject = gardenShed3Demo as ProjectDocument;
+
+// Legacy demo helpers are kept for older bundled data shapes that carry profileId.
 type DemoSourcePart = PartNode & { profileId: ObjectProfileId };
 type LegacyDemoProject = Omit<ProjectDocument, "parts"> & { parts: DemoSourcePart[] };
-const gardenShedDemoProject = gardenShedDemo as unknown as LegacyDemoProject;
 
 function randomId(): string {
   return globalThis.crypto?.randomUUID?.() ?? `id-${Math.random().toString(36).slice(2, 10)}`;
@@ -69,6 +77,7 @@ export function createObjectPart(
     objectType,
     groupId: null,
     materialId: options?.materialId ?? null,
+    buildStatusId: DEFAULT_BUILD_STATUS_ID,
     size: options?.size ?? createSizeFromProfile(profile),
     position: options?.position ?? makeVector3(0, 0, 0),
     rotation: makeVector3(0, 0, 0),
@@ -151,6 +160,7 @@ function createDemoParts(sourceParts: DemoSourcePart[], groupIdMap: Map<string, 
       id: randomId(),
       groupId: part.groupId ? (groupIdMap.get(part.groupId) ?? null) : null,
       materialId: profileToMaterialId.get(profileId) ?? null,
+      buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
       size: cloneVector(part.size),
       position: cloneVector(part.position),
       rotation: cloneVector(part.rotation),
@@ -178,14 +188,16 @@ export function createProject(name?: string): ProjectDocument {
     version: PROJECT_SCHEMA_VERSION,
     unitPreference: getDefaultUnitPreference(),
     snapSettings: {
-      ...gardenShedDemoProject.snapSettings,
+      ...bundledDemoProject.snapSettings,
     },
     gridSettings: { ...DEFAULT_GRID_SETTINGS },
     cutSettings: { ...DEFAULT_CUT_SETTINGS },
+    buildStatuses: DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
     cameraState: {
-      position: cloneVector(gardenShedDemoProject.cameraState.position),
-      target: cloneVector(gardenShedDemoProject.cameraState.target),
+      position: cloneVector(bundledDemoProject.cameraState.position),
+      target: cloneVector(bundledDemoProject.cameraState.target),
     },
+    variables: [],
     groups: [],
     parts: [],
     measurements: [],
@@ -196,32 +208,66 @@ export function createProject(name?: string): ProjectDocument {
   };
 }
 
-export function createDemoProject(): ProjectDocument {
-  const now = new Date().toISOString();
-  const { groups, groupIdMap } = createDemoGroups(gardenShedDemoProject.groups);
-  const { materialGroups, materials, profileToMaterialId } = createInitialMaterials();
-  const parts = createDemoParts(gardenShedDemoProject.parts, groupIdMap, profileToMaterialId);
-  const measurements = createDemoMeasurements(gardenShedDemoProject.measurements, groupIdMap);
+function remapProjectIds(project: ProjectDocument): ProjectDocument {
+  const groupIdMap = new Map(project.groups.map((group) => [group.id, randomId()]));
+  const materialGroupIdMap = new Map(project.materialGroups.map((group) => [group.id, randomId()]));
+  const materialIdMap = new Map(project.materials.map((material) => [material.id, randomId()]));
+  const partIdMap = new Map(project.parts.map((part) => [part.id, randomId()]));
 
   return {
+    ...cloneProject(project),
     id: randomId(),
-    name: gardenShedDemoProject.name,
+    groups: project.groups.map((group) => ({
+      ...group,
+      id: groupIdMap.get(group.id)!,
+      parentGroupId: group.parentGroupId ? (groupIdMap.get(group.parentGroupId) ?? null) : null,
+    })),
+    materialGroups: project.materialGroups.map((group) => ({
+      ...group,
+      id: materialGroupIdMap.get(group.id)!,
+      parentGroupId: group.parentGroupId ? (materialGroupIdMap.get(group.parentGroupId) ?? null) : null,
+      sourceLibraryGroupId: group.sourceLibraryGroupId ? (materialGroupIdMap.get(group.sourceLibraryGroupId) ?? group.sourceLibraryGroupId) : undefined,
+    })),
+    materials: project.materials.map((material) => ({
+      ...material,
+      id: materialIdMap.get(material.id)!,
+      groupId: material.groupId ? (materialGroupIdMap.get(material.groupId) ?? null) : null,
+      sourceLibraryMaterialId: material.sourceLibraryMaterialId
+        ? (materialIdMap.get(material.sourceLibraryMaterialId) ?? material.sourceLibraryMaterialId)
+        : undefined,
+    })),
+    parts: project.parts.map((part) => ({
+      ...part,
+      id: partIdMap.get(part.id)!,
+      groupId: part.groupId ? (groupIdMap.get(part.groupId) ?? null) : null,
+      materialId: part.materialId ? (materialIdMap.get(part.materialId) ?? null) : null,
+      buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+      size: cloneVector(part.size),
+      position: cloneVector(part.position),
+      rotation: cloneVector(part.rotation),
+    })),
+    measurements: project.measurements.map((measurement) => ({
+      ...measurement,
+      id: randomId(),
+      groupId: measurement.groupId ? (groupIdMap.get(measurement.groupId) ?? null) : null,
+      start: cloneVector(measurement.start),
+      end: cloneVector(measurement.end),
+    })),
+    variables: project.variables.map((variable) => ({ ...variable, id: randomId() })),
+    buildStatuses: project.buildStatuses.length > 0
+      ? project.buildStatuses.map((status) => ({ ...status }))
+      : DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
+  };
+}
+
+export function createDemoProject(): ProjectDocument {
+  const now = new Date().toISOString();
+  const demo = remapProjectIds(bundledDemoProject);
+
+  return {
+    ...demo,
     version: PROJECT_SCHEMA_VERSION,
     unitPreference: getDefaultUnitPreference(),
-    snapSettings: {
-      ...gardenShedDemoProject.snapSettings,
-    },
-    gridSettings: { ...DEFAULT_GRID_SETTINGS },
-    cutSettings: { ...DEFAULT_CUT_SETTINGS },
-    cameraState: {
-      position: cloneVector(gardenShedDemoProject.cameraState.position),
-      target: cloneVector(gardenShedDemoProject.cameraState.target),
-    },
-    groups,
-    parts,
-    measurements,
-    materialGroups,
-    materials,
     createdAt: now,
     updatedAt: now,
   };

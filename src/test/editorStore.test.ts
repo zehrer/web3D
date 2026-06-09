@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createInitialMaterials, createProject } from "../lib/project";
+import { DEFAULT_BUILD_STATUS_ID, createInitialMaterials, createProject } from "../lib/project";
 import { createEditorStore } from "../store/editorStore";
 
 function createProjectWithProjectMaterials(name?: string) {
@@ -385,5 +385,23 @@ describe("editor store", () => {
 
     store.getState().deleteSelectedMeasurement();
     expect(store.getState().project.measurements).toHaveLength(initialMeasurementCount);
+  });
+
+  it("updates object build status and reassigns deleted statuses to planned", () => {
+    const store = createEditorStore();
+    store.getState().hydrateProject(createProject());
+    store.getState().addObject("cube");
+    const partId = store.getState().project.parts[0].id;
+
+    store.getState().addBuildStatus();
+    const status = store.getState().project.buildStatuses.at(-1)!;
+    store.getState().updateBuildStatus(status.id, { label: "Cut" });
+    store.getState().setPartBuildStatus(partId, status.id);
+
+    expect(store.getState().project.parts[0].buildStatusId).toBe(status.id);
+    expect(store.getState().project.buildStatuses.at(-1)?.label).toBe("Cut");
+
+    store.getState().deleteBuildStatus(status.id);
+    expect(store.getState().project.parts[0].buildStatusId).toBe(DEFAULT_BUILD_STATUS_ID);
   });
 });

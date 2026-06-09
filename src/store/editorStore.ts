@@ -1,11 +1,13 @@
 import { createStore } from "zustand/vanilla";
 import { useStore } from "zustand";
 import { applyMaterialToPart, legacyLockFieldsFromSize } from "../lib/partMaterial";
-import { cloneProject, createInitialMaterials, createMeasurementNode, createObjectPart, createProject, touchProject } from "../lib/project";
+import { applyProjectParamBindings } from "../lib/parametrics";
+import { DEFAULT_BUILD_STATUS_ID, DEFAULT_BUILD_STATUSES, cloneProject, createInitialMaterials, createMeasurementNode, createObjectPart, createProject, touchProject } from "../lib/project";
 import { applyLockToSize, createSizeFromProfile, extractLockFields, getDefaultProfileId, getObjectTypeLabel, getProfileById } from "../lib/profiles";
 import { clampLength } from "../lib/units";
 import type {
   ActiveTool,
+  BuildStatusDefinition,
   CameraState,
   CutSettings,
   GridSettings,
@@ -16,9 +18,11 @@ import type {
   MeasurementNode,
   ObjectProfileId,
   ObjectType,
+  ParametricFieldKey,
   PartNode,
   ProjectDocument,
   ProjectSummary,
+  ProjectVariable,
   SnapSettings,
   UnitPreference,
   Vector3Like,
@@ -65,6 +69,14 @@ export interface EditorActions {
   updateSnapSettings: (partial: Partial<SnapSettings>) => void;
   updateGridSettings: (partial: Partial<GridSettings>) => void;
   updateCutSettings: (partial: Partial<CutSettings>) => void;
+  addBuildStatus: () => void;
+  updateBuildStatus: (statusId: string, patch: Partial<Pick<BuildStatusDefinition, "label">>) => void;
+  deleteBuildStatus: (statusId: string) => void;
+  setPartBuildStatus: (partId: string, statusId: string) => void;
+  addProjectVariable: () => void;
+  updateProjectVariable: (variableId: string, patch: Partial<Pick<ProjectVariable, "name" | "valueMm">>) => void;
+  deleteProjectVariable: (variableId: string) => void;
+  setPartParamBinding: (partId: string, field: ParametricFieldKey, expression: string | null) => void;
   addObject: (objectType: ObjectType, profileId?: ObjectProfileId) => void;
   addMeasurement: (start: Vector3Like, end: Vector3Like) => void;
   addGroup: (parentGroupId?: string | null) => void;
@@ -177,6 +189,16 @@ function isMaterialUsed(project: ProjectDocument, materialId: string): boolean {
   return project.parts.some((part) => part.materialId === materialId);
 }
 
+function normalizeVariableName(name: string, fallback: string): string {
+  const normalized = name.trim().replace(/\s+/g, "_").replace(/[^A-Za-z0-9_]/g, "");
+  if (!normalized) return fallback;
+  return /^[A-Za-z_]/.test(normalized) ? normalized : `v_${normalized}`;
+}
+
+function expressionReferencesVariable(expression: string, variableName: string): boolean {
+  return new RegExp(`\\b${variableName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(expression);
+}
+
 function getLocalAxisVector(axis: keyof Vector3Like): Vector3Like {
   return {
     x: axis === "x" ? 1 : 0,
@@ -265,6 +287,9 @@ export function createEditorStore() {
           ...project,
           gridSettings: project.gridSettings ?? { size: 6000, originX: 0, originZ: 0 },
           cutSettings: project.cutSettings ?? { kerfMm: 3 },
+          variables: project.variables ?? [],
+          buildStatuses: project.buildStatuses ?? DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
+          parts: project.parts.map((part) => ({ ...part, buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID })),
         },
         hydrated: true,
         selectedPartId: null,
@@ -394,6 +419,127 @@ export function createEditorStore() {
             ...project.cutSettings,
             ...partial,
           },
+        })),
+      })),
+
+    addBuildStatus: () =>
+      set((state) => {
+        const status: BuildStatusDefinition = {
+          id: randomId(),
+          label: `Status ${state.project.buildStatuses.length + 1}`,
+        };
+        return {
+          ...withProjectHistory(state, (project) => ({
+            ...project,
+            buildStatuses: [...project.buildStatuses, status],
+          })),
+        };
+      }),
+
+    updateBuildStatus: (statusId, patch) =>
+      set((state) => ({
+        ...withProjectHistory(state, (project) => ({
+          ...project,
+          buildStatuses: project.buildStatuses.map((status) =>
+            status.id === statusId ? { ...status, label: patch.label?.trim() || status.label } : status,
+          ),
+        })),
+      })),
+
+    deleteBuildStatus: (statusId) =>
+      set((state) => {
+        if (statusId === DEFAULT_BUILD_STATUS_ID) return state;
+        return {
+          ...withProjectHistory(state, (project) => ({
+            ...project,
+            buildStatuses: project.buildStatuses.filter((status) => status.id !== statusId),
+            parts: project.parts.map((part) => (
+              part.buildStatusId === statusId ? { ...part, buildStatusId: DEFAULT_BUILD_STATUS_ID } : part
+            )),
+          })),
+        };
+      }),
+
+    setPartBuildStatus: (partId, statusId) =>
+      set((state) => {
+        const exists = state.project.buildStatuses.some((status) => status.id === statusId);
+        if (!exists) return state;
+        return {
+          ...withProjectHistory(state, (project) => ({
+            ...project,
+            parts: replacePart(project.parts, partId, (part) => ({ ...part, buildStatusId: statusId })),
+          })),
+        };
+      }),
+
+    addProjectVariable: () =>
+      set((state) => {
+        const variable: ProjectVariable = {
+          id: randomId(),
+          name: `var_${state.project.variables.length + 1}`,
+          valueMm: 100,
+        };
+        return {
+          ...withProjectHistory(state, (project) => ({
+            ...project,
+            variables: [...project.variables, variable],
+          })),
+        };
+      }),
+
+    updateProjectVariable: (variableId, patch) =>
+      set((state) => ({
+        ...withProjectHistory(state, (project) => applyProjectParamBindings({
+          ...project,
+          variables: project.variables.map((variable) =>
+            variable.id === variableId
+              ? {
+                  ...variable,
+                  name: patch.name !== undefined ? normalizeVariableName(patch.name, variable.name) : variable.name,
+                  valueMm: patch.valueMm !== undefined && Number.isFinite(patch.valueMm) ? patch.valueMm : variable.valueMm,
+                }
+              : variable,
+          ),
+        })),
+      })),
+
+    deleteProjectVariable: (variableId) =>
+      set((state) => ({
+        ...withProjectHistory(state, (project) => {
+          const variable = project.variables.find((candidate) => candidate.id === variableId);
+          return {
+            ...project,
+            variables: project.variables.filter((candidate) => candidate.id !== variableId),
+            parts: variable
+              ? project.parts.map((part) => {
+                  if (!part.paramBindings) return part;
+                  const nextBindings = Object.fromEntries(
+                    Object.entries(part.paramBindings).filter(([, expression]) => !expressionReferencesVariable(expression, variable.name)),
+                  );
+                  return {
+                    ...part,
+                    paramBindings: Object.keys(nextBindings).length > 0 ? nextBindings : undefined,
+                  };
+                })
+              : project.parts,
+          };
+        }),
+      })),
+
+    setPartParamBinding: (partId, field, expression) =>
+      set((state) => ({
+        ...withProjectHistory(state, (project) => applyProjectParamBindings({
+          ...project,
+          parts: replacePart(project.parts, partId, (part) => {
+            const bindings = { ...part.paramBindings };
+            const trimmed = expression?.trim() ?? "";
+            if (trimmed) bindings[field] = trimmed;
+            else delete bindings[field];
+            return {
+              ...part,
+              paramBindings: Object.keys(bindings).length > 0 ? bindings : undefined,
+            };
+          }),
         })),
       })),
 

@@ -1,9 +1,10 @@
 import { useEffect, useState, type DragEvent } from "react";
-import { BeamIcon, ChevronDownIcon, ChevronRightIcon, CircleIcon, CladdingIcon, CollapseFoldersIcon, CubeIcon, ExpandFoldersIcon, EyeIcon, EyeOffIcon, FilterIcon, FolderIcon, GlassIcon, RectangleIcon, RulerIcon, SheetIcon, TrashIcon } from "./Icons";
+import { BeamIcon, ChevronDownIcon, ChevronRightIcon, CircleIcon, CladdingIcon, CollapseFoldersIcon, CubeIcon, ExpandFoldersIcon, EyeIcon, EyeOffIcon, FilterIcon, FolderIcon, GlassIcon, PlusIcon, RectangleIcon, RulerIcon, SettingsIcon, SheetIcon, TrashIcon } from "./Icons";
+import { DEFAULT_BUILD_STATUS_ID } from "../lib/project";
 import { useEditorStore } from "../store/editorStore";
 import type { GroupNode, MaterialGroupNode, MaterialNode, MeasurementNode, ObjectType, PartNode } from "../types/model";
 
-type SidebarTab = "objects" | "material";
+type SidebarTab = "objects" | "material" | "variables";
 type EditingItem = { kind: "part" | "group" | "measurement"; id: string } | null;
 type EditingMaterialItem = { kind: "material" | "materialGroup"; id: string } | null;
 type DraggedTreeItem = { kind: "part" | "group" | "measurement"; id: string };
@@ -259,6 +260,119 @@ function MaterialPanel() {
         ) : (
           <p className="panel-card__empty">{filterMode === "all" ? "No materials defined yet." : "No materials used in this project yet."}</p>
         )}
+      </div>
+    </section>
+  );
+}
+
+function VariablesPanel() {
+  const variables = useEditorStore((state) => state.project.variables);
+  const buildStatuses = useEditorStore((state) => state.project.buildStatuses);
+  const addProjectVariable = useEditorStore((state) => state.addProjectVariable);
+  const updateProjectVariable = useEditorStore((state) => state.updateProjectVariable);
+  const deleteProjectVariable = useEditorStore((state) => state.deleteProjectVariable);
+  const addBuildStatus = useEditorStore((state) => state.addBuildStatus);
+  const updateBuildStatus = useEditorStore((state) => state.updateBuildStatus);
+  const deleteBuildStatus = useEditorStore((state) => state.deleteBuildStatus);
+
+  return (
+    <section className="panel-card browser-card">
+      <div className="browser-card__header">
+        <div>
+          <span className="panel-card__title">Settings</span>
+          <p className="browser-card__subtitle">
+            Variables and build statuses
+          </p>
+        </div>
+      </div>
+
+      <div className="settings-section">
+        <div className="settings-section__header">
+          <span className="settings-section__title">Build Statuses</span>
+          <button
+            aria-label="Create build status"
+            className="browser-card__header-action"
+            onClick={() => addBuildStatus()}
+            title="Create build status"
+            type="button"
+          >
+            <PlusIcon width={16} height={16} />
+          </button>
+        </div>
+        <div className="variable-list">
+          {buildStatuses.map((status) => (
+            <div className="variable-row variable-row--status" key={status.id}>
+              <SettingsIcon width={14} height={14} />
+              <input
+                aria-label="Build status label"
+                className="variable-row__input"
+                value={status.label}
+                onChange={(event) => updateBuildStatus(status.id, { label: event.target.value })}
+                type="text"
+              />
+              <button
+                aria-label={`Delete ${status.label}`}
+                className="object-row__eye object-row__eye--hidden"
+                disabled={status.id === DEFAULT_BUILD_STATUS_ID}
+                onClick={() => deleteBuildStatus(status.id)}
+                title={status.id === DEFAULT_BUILD_STATUS_ID ? "Default status cannot be deleted" : "Delete build status"}
+                type="button"
+              >
+                <TrashIcon width={12} height={12} />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="settings-section">
+        <div className="settings-section__header">
+          <span className="settings-section__title">Variables</span>
+        <button
+          aria-label="Create variable"
+          className="browser-card__header-action"
+          onClick={() => addProjectVariable()}
+          title="Create variable"
+          type="button"
+        >
+          <PlusIcon width={16} height={16} />
+        </button>
+      </div>
+
+      <div className="variable-list">
+        {variables.length > 0 ? variables.map((variable) => (
+          <div className="variable-row" key={variable.id}>
+            <SettingsIcon width={14} height={14} />
+            <input
+              aria-label="Variable name"
+              className="variable-row__input"
+              value={variable.name}
+              onChange={(event) => updateProjectVariable(variable.id, { name: event.target.value })}
+              type="text"
+            />
+            <input
+              aria-label={`${variable.name} value in millimeters`}
+              className="variable-row__value"
+              value={Number(variable.valueMm.toFixed(2))}
+              onChange={(event) => updateProjectVariable(variable.id, { valueMm: Number(event.target.value) })}
+              type="number"
+              step="0.1"
+            />
+            <span className="variable-row__unit">mm</span>
+            <button
+              aria-label={`Delete ${variable.name}`}
+              className="object-row__eye object-row__eye--hidden"
+              onClick={() => deleteProjectVariable(variable.id)}
+              title="Delete variable"
+              type="button"
+            >
+              <TrashIcon width={12} height={12} />
+            </button>
+          </div>
+        )) : (
+          <p className="panel-card__empty">No variables defined yet.</p>
+        )}
+      </div>
       </div>
     </section>
   );
@@ -617,6 +731,13 @@ export function ProjectSidebar() {
         >
           Material
         </button>
+        <button
+          className={`sidebar-tabs__tab ${activeTab === "variables" ? "sidebar-tabs__tab--active" : ""}`}
+          onClick={() => { setActiveTab("variables"); selectMaterial(null); }}
+          type="button"
+        >
+          Settings
+        </button>
       </div>
 
       {activeTab === "objects" ? (
@@ -676,8 +797,10 @@ export function ProjectSidebar() {
             )}
           </div>
         </section>
-      ) : (
+      ) : activeTab === "material" ? (
         <MaterialPanel />
+      ) : (
+        <VariablesPanel />
       )}
     </aside>
   );

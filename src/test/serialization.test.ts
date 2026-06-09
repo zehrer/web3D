@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PROJECT_SCHEMA_VERSION, createDemoProject, createProject } from "../lib/project";
+import { DEFAULT_BUILD_STATUS_ID, DEFAULT_BUILD_STATUSES, PROJECT_SCHEMA_VERSION, createDemoProject, createProject } from "../lib/project";
 import { deserializeProject, deserializeProjectFile, serializeProject, serializeProjectFile } from "../lib/serialization";
 
 describe("project serialization", () => {
@@ -16,7 +16,7 @@ describe("project serialization", () => {
     expect(parsed.parts[0].groupId).toBe(project.parts[0].groupId);
     expect(parsed.measurements).toEqual(project.measurements);
     expect(parsed.groups.some((group) => group.name === "Shed")).toBe(true);
-    expect(parsed.parts).toHaveLength(169);
+    expect(parsed.parts).toHaveLength(162);
     expect(parsed.parts.some((part) => part.objectType === "timber")).toBe(true);
     expect(parsed.parts.some((part) => part.objectType === "glass")).toBe(true);
     expect(parsed.parts.some((part) => part.objectType === "rectangle")).toBe(true);
@@ -163,6 +163,22 @@ describe("project serialization", () => {
     expect(parsed.cutSettings).toEqual({ kerfMm: 4.2 });
   });
 
+  it("migrates v12 projects by adding build statuses", () => {
+    const project = createProject("V12");
+    const payload = JSON.stringify({
+      ...project,
+      version: 12,
+      buildStatuses: undefined,
+      parts: project.parts.map(({ buildStatusId: _buildStatusId, ...part }) => part),
+    });
+
+    const parsed = deserializeProject(payload);
+
+    expect(parsed.version).toBe(PROJECT_SCHEMA_VERSION);
+    expect(parsed.buildStatuses).toEqual(DEFAULT_BUILD_STATUSES);
+    expect(parsed.parts.every((part) => part.buildStatusId === DEFAULT_BUILD_STATUS_ID)).toBe(true);
+  });
+
   it("migrates v7 projects by populating defaultSize and lock fields on materials", () => {
     const project = createProject("V7");
     const legacyMaterials = [
@@ -233,6 +249,7 @@ describe("project serialization", () => {
       profileId: "timber-100x100" as const,
       groupId: group.id,
       materialId: null,
+      buildStatusId: DEFAULT_BUILD_STATUS_ID,
       size: { x: 100, y: 100, z: 2500 },
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
@@ -273,6 +290,7 @@ describe("project serialization", () => {
       profileId: "timber-100x100" as const,
       groupId: null,
       materialId: null,
+      buildStatusId: DEFAULT_BUILD_STATUS_ID,
       size: { x: 100, y: 100, z: 2500 },
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
