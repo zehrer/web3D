@@ -404,4 +404,43 @@ describe("editor store", () => {
     store.getState().deleteBuildStatus(status.id);
     expect(store.getState().project.parts[0].buildStatusId).toBe(DEFAULT_BUILD_STATUS_ID);
   });
+
+  it("updates object build order with project history", () => {
+    const store = createEditorStore();
+    store.getState().hydrateProject(createProject());
+    store.getState().addObject("cube");
+    const partId = store.getState().project.parts[0].id;
+
+    store.getState().setPartBuildOrder(partId, 7);
+
+    expect(store.getState().project.parts[0].buildOrder).toBe(7);
+    store.getState().undo();
+    expect(store.getState().project.parts[0].buildOrder).toBe(1);
+  });
+
+  it("reorders one or more objects in the build order", () => {
+    const store = createEditorStore();
+    store.getState().hydrateProject(createProject());
+    store.getState().addObject("cube");
+    store.getState().addObject("cube");
+    store.getState().addObject("cube");
+    store.getState().addObject("cube");
+    const [first, second, third, fourth] = store.getState().project.parts;
+
+    store.getState().reorderPartsBuildOrder([third.id], first.id);
+
+    expect(
+      [...store.getState().project.parts]
+        .sort((left, right) => left.buildOrder - right.buildOrder)
+        .map((part) => part.id),
+    ).toEqual([third.id, first.id, second.id, fourth.id]);
+
+    store.getState().reorderPartsBuildOrder([second.id, fourth.id], first.id);
+
+    expect(
+      [...store.getState().project.parts]
+        .sort((left, right) => left.buildOrder - right.buildOrder)
+        .map((part) => part.id),
+    ).toEqual([third.id, second.id, fourth.id, first.id]);
+  });
 });

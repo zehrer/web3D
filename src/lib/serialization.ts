@@ -104,6 +104,11 @@ type ProjectDocumentV12 = Omit<ProjectDocument, "version" | "buildStatuses" | "p
   parts: Array<Omit<PartNode, "buildStatusId">>;
 };
 
+type ProjectDocumentV13 = Omit<ProjectDocument, "version" | "parts"> & {
+  version: 13;
+  parts: Array<Omit<PartNode, "buildOrder">>;
+};
+
 type Web3dProjectFile = {
   format: typeof WEB3D_PROJECT_FILE_FORMAT;
   formatVersion: typeof WEB3D_PROJECT_FILE_FORMAT_VERSION;
@@ -313,11 +318,20 @@ function migrateProjectV11ToCurrent(project: ProjectDocumentV11): ProjectDocumen
 }
 
 function migrateProjectV12ToCurrent(project: ProjectDocumentV12): ProjectDocument {
+  const v13: ProjectDocumentV13 = {
+    ...project,
+    version: 13 as const,
+    buildStatuses: DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
+    parts: project.parts.map((part) => ({ ...part, buildStatusId: DEFAULT_BUILD_STATUS_ID })),
+  };
+  return migrateProjectV13ToCurrent(v13);
+}
+
+function migrateProjectV13ToCurrent(project: ProjectDocumentV13): ProjectDocument {
   return {
     ...project,
     version: PROJECT_SCHEMA_VERSION,
-    buildStatuses: DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
-    parts: project.parts.map((part) => ({ ...part, buildStatusId: DEFAULT_BUILD_STATUS_ID })),
+    parts: project.parts.map((part, index) => ({ ...part, buildOrder: index + 1 })),
   };
 }
 
@@ -389,6 +403,10 @@ export function deserializeProject(payload: string): ProjectDocument {
     return migrateProjectV12ToCurrent(parsed as unknown as ProjectDocumentV12);
   }
 
+  if (parsed.version === 13) {
+    return migrateProjectV13ToCurrent(parsed as unknown as ProjectDocumentV13);
+  }
+
   if (parsed.version !== PROJECT_SCHEMA_VERSION) {
     throw new Error(`Unsupported project version: ${parsed.version}`);
   }
@@ -412,6 +430,7 @@ export function deserializeProject(payload: string): ProjectDocument {
     parts: parsed.parts.map((part) => ({
       ...part,
       buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+      buildOrder: part.buildOrder ?? parsed.parts.indexOf(part) + 1,
     })),
   } as ProjectDocument;
 }

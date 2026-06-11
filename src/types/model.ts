@@ -71,6 +71,7 @@ export interface PartNode {
   groupId: string | null;
   materialId: string | null;
   buildStatusId: string;
+  buildOrder: number;
   size: Vector3Like;
   position: Vector3Like;
   rotation: Vector3Like;

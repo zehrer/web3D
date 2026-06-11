@@ -5,6 +5,7 @@ import { ArrowHelper, DoubleSide, Euler, Mesh, PerspectiveCamera, Vector3, type 
 import {
   ArIcon,
   BeamIcon,
+  BuildSequenceIcon,
   CircleIcon,
   CladdingIcon,
   CubeIcon,
@@ -12,7 +13,9 @@ import {
   GlassIcon,
   HelpIcon,
   MoveIcon,
+  PauseIcon,
   PerspectiveIcon,
+  PlayIcon,
   PlusIcon,
   RedoIcon,
   RectangleIcon,
@@ -351,6 +354,7 @@ function buildPreviewPart(material: MaterialNode): PartNode {
     groupId: null,
     materialId: material.id,
     buildStatusId: DEFAULT_BUILD_STATUS_ID,
+    buildOrder: 0,
     size: { ...material.defaultSize },
     crossSectionWidthMm: material.crossSectionWidthMm,
     crossSectionHeightMm: material.crossSectionHeightMm,
@@ -477,6 +481,17 @@ function isPartVisible(part: PartNode, groups: import("../types/model").GroupNod
   return true;
 }
 
+function isPartVisibleInBuildPreview(part: PartNode, buildPreviewEnabled: boolean, buildPreviewStep: number): boolean {
+  if (!buildPreviewEnabled) {
+    return true;
+  }
+  return part.buildOrder <= buildPreviewStep;
+}
+
+function getMaxBuildOrder(parts: PartNode[]): number {
+  return parts.reduce((max, part) => Math.max(max, Number.isFinite(part.buildOrder) ? part.buildOrder : 0), 0);
+}
+
 function isMeasurementVisible(measurement: MeasurementNode, groups: import("../types/model").GroupNode[]): boolean {
   if (measurement.hidden) return false;
   let groupId = measurement.groupId;
@@ -492,13 +507,17 @@ function isMeasurementVisible(measurement: MeasurementNode, groups: import("../t
 function Scene() {
   const allParts = useEditorStore((state) => state.project.parts);
   const groups = useEditorStore((state) => state.project.groups);
+  const buildPreviewEnabled = useEditorStore((state) => state.buildPreviewEnabled);
+  const buildPreviewStep = useEditorStore((state) => state.buildPreviewStep);
   const globalMaterialLibrary = useEditorStore((state) => state.globalMaterialLibrary);
   const selectedMaterialId = useEditorStore((state) => state.selectedMaterialId);
   const selectedMaterial = selectedMaterialId
     ? (globalMaterialLibrary.materials.find((m) => m.id === selectedMaterialId) ?? null)
     : null;
   const previewPart = selectedMaterial ? buildPreviewPart(selectedMaterial) : null;
-  const parts = allParts.filter((part) => isPartVisible(part, groups));
+  const parts = allParts.filter((part) =>
+    isPartVisible(part, groups) && isPartVisibleInBuildPreview(part, buildPreviewEnabled, buildPreviewStep)
+  );
   const allMeasurements = useEditorStore((state) => state.project.measurements);
   const measurements = allMeasurements.filter((m) => isMeasurementVisible(m, groups));
   const selectedPartId = useEditorStore((state) => state.selectedPartId);
@@ -821,10 +840,15 @@ export function Viewport() {
   const [lastUsedMaterialByGroup, setLastUsedMaterialByGroup] = useState<Map<string, string>>(new Map());
   const [isIos] = useState(() => isIosDevice());
   const [arExporting, setArExporting] = useState(false);
+  const [buildPlaybackActive, setBuildPlaybackActive] = useState(false);
   const railMenuRef = useRef<HTMLDivElement | null>(null);
   const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const activeTool = useEditorStore((state) => state.activeTool);
   const setActiveTool = useEditorStore((state) => state.setActiveTool);
+  const buildPreviewEnabled = useEditorStore((state) => state.buildPreviewEnabled);
+  const buildPreviewStep = useEditorStore((state) => state.buildPreviewStep);
+  const setBuildPreviewEnabled = useEditorStore((state) => state.setBuildPreviewEnabled);
+  const setBuildPreviewStep = useEditorStore((state) => state.setBuildPreviewStep);
   const addObject = useEditorStore((state) => state.addObject);
   const addObjectFromGlobalMaterial = useEditorStore((state) => state.addObjectFromGlobalMaterial);
   const materialGroups = useEditorStore((state) => state.globalMaterialLibrary.materialGroups);
@@ -845,6 +869,10 @@ export function Viewport() {
     state.project.measurements.find((measurement) => measurement.id === state.selectedMeasurementId) ?? null,
   );
   const unitPreference = useEditorStore((state) => state.project.unitPreference);
+  const maxBuildOrder = getMaxBuildOrder(allParts);
+  const visibleBuildParts = allParts
+    .filter((part) => isPartVisible(part, groups) && isPartVisibleInBuildPreview(part, buildPreviewEnabled, buildPreviewStep))
+    .length;
 
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
@@ -856,6 +884,29 @@ export function Viewport() {
     window.addEventListener("pointerdown", handlePointerDown);
     return () => window.removeEventListener("pointerdown", handlePointerDown);
   }, []);
+
+  useEffect(() => {
+    if (buildPreviewStep > maxBuildOrder) {
+      setBuildPreviewStep(maxBuildOrder);
+    }
+  }, [buildPreviewStep, maxBuildOrder, setBuildPreviewStep]);
+
+  useEffect(() => {
+    if (!buildPlaybackActive || !buildPreviewEnabled || maxBuildOrder === 0) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      const currentStep = editorStore.getState().buildPreviewStep;
+      if (currentStep >= maxBuildOrder) {
+        setBuildPlaybackActive(false);
+        return;
+      }
+      editorStore.getState().setBuildPreviewStep(currentStep + 1);
+    }, 900);
+
+    return () => window.clearInterval(timer);
+  }, [buildPlaybackActive, buildPreviewEnabled, maxBuildOrder]);
 
   async function handleOpenArView() {
     if (arExporting) {
@@ -872,7 +923,9 @@ export function Viewport() {
   }
 
   function setCameraPreset(preset: "perspective" | "top" | "front" | "right") {
-    const visibleParts = allParts.filter((part) => isPartVisible(part, groups));
+    const visibleParts = allParts.filter((part) =>
+      isPartVisible(part, groups) && isPartVisibleInBuildPreview(part, buildPreviewEnabled, buildPreviewStep)
+    );
     const CAMERA_FOV_DEG = 38;
     const PADDING = 1.35;
 
@@ -1099,6 +1152,20 @@ export function Viewport() {
           <button className={`viewport-rail__button ${showHelp ? "viewport-rail__button--active" : ""}`} onClick={() => setShowHelp((value) => !value)} title="Help" type="button">
             <HelpIcon width={18} height={18} />
           </button>
+          <button
+            className={`viewport-rail__button ${buildPreviewEnabled ? "viewport-rail__button--active" : ""}`}
+            onClick={() => {
+              const nextEnabled = !buildPreviewEnabled;
+              setBuildPreviewEnabled(nextEnabled);
+              if (!nextEnabled) {
+                setBuildPlaybackActive(false);
+              }
+            }}
+            title="Build sequence"
+            type="button"
+          >
+            <BuildSequenceIcon width={18} height={18} />
+          </button>
         </div>
 
         {showHelp ? (
@@ -1109,6 +1176,60 @@ export function Viewport() {
             <span>Use resize to drag the yellow handles.</span>
             <span>Use measure to click two grid points or object corners.</span>
             <span>Units and snap live in the project settings.</span>
+          </div>
+        ) : null}
+
+        {buildPreviewEnabled ? (
+          <div className="build-sequence-panel">
+            <div className="build-sequence-panel__header">
+              <strong>Build Sequence</strong>
+              <span>
+                Step {buildPreviewStep} / {maxBuildOrder} · {visibleBuildParts} visible
+              </span>
+            </div>
+            <div className="build-sequence-panel__controls">
+              <button
+                className="build-sequence-panel__icon"
+                disabled={buildPreviewStep <= 0}
+                onClick={() => setBuildPreviewStep(buildPreviewStep - 1)}
+                title="Previous step"
+                type="button"
+              >
+                <span aria-hidden="true">−</span>
+              </button>
+              <input
+                aria-label="Build sequence step"
+                max={maxBuildOrder}
+                min={0}
+                onChange={(event) => setBuildPreviewStep(Number(event.target.value))}
+                type="range"
+                value={Math.min(buildPreviewStep, maxBuildOrder)}
+              />
+              <button
+                className="build-sequence-panel__icon"
+                disabled={buildPreviewStep >= maxBuildOrder}
+                onClick={() => setBuildPreviewStep(buildPreviewStep + 1)}
+                title="Next step"
+                type="button"
+              >
+                <span aria-hidden="true">+</span>
+              </button>
+              <button
+                className="build-sequence-panel__play"
+                disabled={maxBuildOrder === 0}
+                onClick={() => {
+                  if (buildPreviewStep >= maxBuildOrder) {
+                    setBuildPreviewStep(0);
+                  }
+                  setBuildPlaybackActive((value) => !value);
+                }}
+                title={buildPlaybackActive ? "Pause build animation" : "Play build animation"}
+                type="button"
+              >
+                {buildPlaybackActive ? <PauseIcon width={15} height={15} /> : <PlayIcon width={15} height={15} />}
+                <span>{buildPlaybackActive ? "Pause" : "Play"}</span>
+              </button>
+            </div>
           </div>
         ) : null}
 

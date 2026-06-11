@@ -179,6 +179,20 @@ describe("project serialization", () => {
     expect(parsed.parts.every((part) => part.buildStatusId === DEFAULT_BUILD_STATUS_ID)).toBe(true);
   });
 
+  it("migrates v13 projects by adding sequential build order", () => {
+    const project = createDemoProject();
+    const payload = JSON.stringify({
+      ...project,
+      version: 13,
+      parts: project.parts.map(({ buildOrder: _buildOrder, ...part }) => part),
+    });
+
+    const parsed = deserializeProject(payload);
+
+    expect(parsed.version).toBe(PROJECT_SCHEMA_VERSION);
+    expect(parsed.parts.slice(0, 3).map((part) => part.buildOrder)).toEqual([1, 2, 3]);
+  });
+
   it("migrates v7 projects by populating defaultSize and lock fields on materials", () => {
     const project = createProject("V7");
     const legacyMaterials = [
@@ -250,6 +264,7 @@ describe("project serialization", () => {
       groupId: group.id,
       materialId: null,
       buildStatusId: DEFAULT_BUILD_STATUS_ID,
+      buildOrder: 1,
       size: { x: 100, y: 100, z: 2500 },
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
@@ -291,6 +306,7 @@ describe("project serialization", () => {
       groupId: null,
       materialId: null,
       buildStatusId: DEFAULT_BUILD_STATUS_ID,
+      buildOrder: 1,
       size: { x: 100, y: 100, z: 2500 },
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },

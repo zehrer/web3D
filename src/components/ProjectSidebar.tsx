@@ -8,9 +8,12 @@ type SidebarTab = "objects" | "material" | "variables";
 type EditingItem = { kind: "part" | "group" | "measurement"; id: string } | null;
 type EditingMaterialItem = { kind: "material" | "materialGroup"; id: string } | null;
 type DraggedTreeItem = { kind: "part" | "group" | "measurement"; id: string };
+type DraggedBuildItem = { kind: "build-part"; ids: string[] };
 type DropTarget = "root" | string | null;
+type BuildDropTarget = string | null;
 
 const TREE_DRAG_MIME = "application/x-web3d-tree-item";
+const BUILD_DRAG_MIME = "application/x-web3d-build-item";
 
 function PartTypeIcon({ objectType }: { objectType: ObjectType }) {
   if (objectType === "sheet") return <SheetIcon width={14} height={14} />;
@@ -384,8 +387,12 @@ export function ProjectSidebar() {
   const [draftName, setDraftName] = useState("");
   const [draggingItem, setDraggingItem] = useState<DraggedTreeItem | null>(null);
   const [dropTarget, setDropTarget] = useState<DropTarget>(null);
+  const [selectedBuildPartIds, setSelectedBuildPartIds] = useState<Set<string>>(() => new Set());
+  const [draggingBuildPartIds, setDraggingBuildPartIds] = useState<string[]>([]);
+  const [buildDropTarget, setBuildDropTarget] = useState<BuildDropTarget>(null);
   const [expandedGroupIds, setExpandedGroupIds] = useState<Set<string>>(() => new Set());
   const project = useEditorStore((state) => state.project);
+  const buildPreviewEnabled = useEditorStore((state) => state.buildPreviewEnabled);
   const selectedPartId = useEditorStore((state) => state.selectedPartId);
   const selectedMeasurementId = useEditorStore((state) => state.selectedMeasurementId);
   const selectedMaterialId = useEditorStore((state) => state.selectedMaterialId);
@@ -399,6 +406,7 @@ export function ProjectSidebar() {
   const movePartToGroup = useEditorStore((state) => state.movePartToGroup);
   const moveMeasurementToGroup = useEditorStore((state) => state.moveMeasurementToGroup);
   const moveGroupToGroup = useEditorStore((state) => state.moveGroupToGroup);
+  const reorderPartsBuildOrder = useEditorStore((state) => state.reorderPartsBuildOrder);
   const togglePartVisibility = useEditorStore((state) => state.togglePartVisibility);
   const toggleGroupVisibility = useEditorStore((state) => state.toggleGroupVisibility);
   const toggleMeasurementVisibility = useEditorStore((state) => state.toggleMeasurementVisibility);
@@ -421,6 +429,20 @@ export function ProjectSidebar() {
       setActiveTab("material");
     }
   }, [selectedMaterialId]);
+
+  useEffect(() => {
+    if (buildPreviewEnabled) {
+      setActiveTab("objects");
+    }
+  }, [buildPreviewEnabled]);
+
+  useEffect(() => {
+    setSelectedBuildPartIds((current) => {
+      const existingPartIds = new Set(project.parts.map((part) => part.id));
+      const next = new Set(Array.from(current).filter((partId) => existingPartIds.has(partId)));
+      return next.size === current.size ? current : next;
+    });
+  }, [project.parts]);
 
   useEffect(() => {
     setExpandedGroupIds((current) => {
@@ -495,6 +517,66 @@ export function ProjectSidebar() {
   }
 
   function endDrag() { setDraggingItem(null); setDropTarget(null); }
+
+  function sortedBuildParts(): PartNode[] {
+    return [...project.parts].sort((left, right) =>
+      left.buildOrder - right.buildOrder || left.name.localeCompare(right.name) || left.id.localeCompare(right.id)
+    );
+  }
+
+  function toggleBuildPartSelected(partId: string, checked: boolean) {
+    setSelectedBuildPartIds((current) => {
+      const next = new Set(current);
+      if (checked) next.add(partId);
+      else next.delete(partId);
+      return next;
+    });
+  }
+
+  function parseDraggedBuildItem(event: DragEvent): DraggedBuildItem | null {
+    const payload = event.dataTransfer.getData(BUILD_DRAG_MIME);
+    if (!payload) return null;
+    try {
+      const parsed = JSON.parse(payload) as DraggedBuildItem;
+      return parsed.kind === "build-part" && Array.isArray(parsed.ids) ? parsed : null;
+    } catch { return null; }
+  }
+
+  function getDraggedBuildItem(event: DragEvent): DraggedBuildItem | null {
+    return draggingBuildPartIds.length > 0 ? { kind: "build-part", ids: draggingBuildPartIds } : parseDraggedBuildItem(event);
+  }
+
+  function beginBuildDrag(event: DragEvent, partId: string) {
+    event.stopPropagation();
+    const ids = selectedBuildPartIds.has(partId) ? Array.from(selectedBuildPartIds) : [partId];
+    setDraggingBuildPartIds(ids);
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData(BUILD_DRAG_MIME, JSON.stringify({ kind: "build-part", ids } satisfies DraggedBuildItem));
+  }
+
+  function endBuildDrag() {
+    setDraggingBuildPartIds([]);
+    setBuildDropTarget(null);
+  }
+
+  function handleBuildDragOver(event: DragEvent, targetPartId: string) {
+    const item = getDraggedBuildItem(event);
+    if (!item || item.ids.includes(targetPartId)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = "move";
+    setBuildDropTarget(targetPartId);
+  }
+
+  function handleBuildDrop(event: DragEvent, targetPartId: string) {
+    const item = getDraggedBuildItem(event);
+    event.preventDefault();
+    event.stopPropagation();
+    if (item && !item.ids.includes(targetPartId)) {
+      reorderPartsBuildOrder(item.ids, targetPartId);
+    }
+    endBuildDrag();
+  }
 
   function dropItemIntoGroup(item: DraggedTreeItem, groupId: string) {
     if (item.kind === "part") { movePartToGroup(item.id, groupId); return; }
@@ -709,6 +791,64 @@ export function ProjectSidebar() {
     );
   }
 
+  function renderBuildPart(part: PartNode) {
+    const isSelected = selectedPartId === part.id;
+    const isChecked = selectedBuildPartIds.has(part.id);
+    const isDragging = draggingBuildPartIds.includes(part.id);
+    const isDropTarget = buildDropTarget === part.id;
+
+    return (
+      <div
+        key={part.id}
+        className={`object-row build-order-row ${isSelected ? "object-row--selected" : ""} ${isDragging ? "object-row--dragging" : ""} ${isDropTarget ? "object-row--drop-target" : ""}`}
+        draggable
+        onClick={() => selectPart(part.id)}
+        onDoubleClick={(event) => {
+          event.stopPropagation();
+          beginRenamePart(part.id, part.name);
+        }}
+        onDragEnd={endBuildDrag}
+        onDragLeave={() => { if (buildDropTarget === part.id) setBuildDropTarget(null); }}
+        onDragOver={(event) => handleBuildDragOver(event, part.id)}
+        onDragStart={(event) => beginBuildDrag(event, part.id)}
+        onDrop={(event) => handleBuildDrop(event, part.id)}
+        onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectPart(part.id); } }}
+        role="button"
+        tabIndex={0}
+      >
+        <label className="build-order-row__select" onClick={(event) => event.stopPropagation()}>
+          <input
+            checked={isChecked}
+            onChange={(event) => toggleBuildPartSelected(part.id, event.target.checked)}
+            onDragStart={(event) => event.preventDefault()}
+            type="checkbox"
+          />
+        </label>
+        <span className="build-order-row__number">{part.buildOrder}</span>
+        <span className="object-row__icon"><PartTypeIcon objectType={part.objectType} /></span>
+        <span className="object-row__content">
+          {renderNameEditor("part", part.id, part.name)}
+        </span>
+      </div>
+    );
+  }
+
+  function renderBuildOrderList() {
+    const buildParts = sortedBuildParts();
+    return (
+      <>
+        <div className="browser-card__build-hint">
+          Drag rows to change build order. Select multiple rows to move them together.
+        </div>
+        <div className="object-browser build-order-list">
+          {buildParts.length > 0 ? buildParts.map(renderBuildPart) : (
+            <p className="panel-card__empty">No objects in the build sequence yet.</p>
+          )}
+        </div>
+      </>
+    );
+  }
+
   const rootGroups = groupChildren(null);
   const rootParts = partChildren(null);
   const rootMeasurements = measurementChildren(null);
@@ -746,10 +886,12 @@ export function ProjectSidebar() {
             <div>
               <span className="panel-card__title">Objects</span>
               <p className="browser-card__subtitle">
-                {project.parts.length + project.measurements.length} objects · {project.groups.length} groups
+                {buildPreviewEnabled
+                  ? `${project.parts.length} build steps`
+                  : `${project.parts.length + project.measurements.length} objects · ${project.groups.length} groups`}
               </p>
             </div>
-            <div className="browser-card__header-actions">
+            {!buildPreviewEnabled ? <div className="browser-card__header-actions">
               <button
                 aria-label="Expand all groups"
                 className="browser-card__header-action"
@@ -777,25 +919,27 @@ export function ProjectSidebar() {
               >
                 <FolderIcon width={16} height={16} />
               </button>
-            </div>
+            </div> : null}
           </div>
 
-          <div
-            className={`object-browser ${dropTarget === "root" ? "object-browser--drop-target" : ""}`}
-            onDragLeave={(event) => { if (event.currentTarget === event.target && dropTarget === "root") setDropTarget(null); }}
-            onDragOver={handleRootDragOver}
-            onDrop={handleRootDrop}
-          >
-            {hasVisibleItems ? (
-              <>
-                {rootGroups.map((group) => renderGroup(group, 0))}
-                {rootParts.map((part) => renderPart(part, 0))}
-                {rootMeasurements.map((measurement) => renderMeasurement(measurement, 0))}
-              </>
-            ) : (
-              <p className="panel-card__empty">No objects or groups yet.</p>
-            )}
-          </div>
+          {buildPreviewEnabled ? renderBuildOrderList() : (
+            <div
+              className={`object-browser ${dropTarget === "root" ? "object-browser--drop-target" : ""}`}
+              onDragLeave={(event) => { if (event.currentTarget === event.target && dropTarget === "root") setDropTarget(null); }}
+              onDragOver={handleRootDragOver}
+              onDrop={handleRootDrop}
+            >
+              {hasVisibleItems ? (
+                <>
+                  {rootGroups.map((group) => renderGroup(group, 0))}
+                  {rootParts.map((part) => renderPart(part, 0))}
+                  {rootMeasurements.map((measurement) => renderMeasurement(measurement, 0))}
+                </>
+              ) : (
+                <p className="panel-card__empty">No objects or groups yet.</p>
+              )}
+            </div>
+          )}
         </section>
       ) : activeTab === "material" ? (
         <MaterialPanel />
