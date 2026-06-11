@@ -26,7 +26,7 @@ import type {
   Vector3Like,
 } from "../types/model";
 
-export const PROJECT_SCHEMA_VERSION = 13;
+export const PROJECT_SCHEMA_VERSION = 14;
 export const DEFAULT_GRID_SETTINGS = { size: 6000, originX: 0, originZ: 0 };
 export const DEFAULT_CUT_SETTINGS = { kerfMm: 3 };
 export const DEFAULT_BUILD_STATUS_ID = "planned";
@@ -39,7 +39,7 @@ export const DEFAULT_BUILD_STATUSES: BuildStatusDefinition[] = [
 export const DEFAULT_WORKSPACE_FOCUS_XZ = 900;
 export const DEFAULT_CAMERA_HEIGHT = 160;
 
-const bundledDemoProject = gardenShed3Demo as ProjectDocument;
+const bundledDemoProject = gardenShed3Demo as unknown as ProjectDocument;
 
 // Legacy demo helpers are kept for older bundled data shapes that carry profileId.
 type DemoSourcePart = PartNode & { profileId: ObjectProfileId };
@@ -78,6 +78,7 @@ export function createObjectPart(
     groupId: null,
     materialId: options?.materialId ?? null,
     buildStatusId: DEFAULT_BUILD_STATUS_ID,
+    buildOrder: index + 1,
     size: options?.size ?? createSizeFromProfile(profile),
     position: options?.position ?? makeVector3(0, 0, 0),
     rotation: makeVector3(0, 0, 0),
@@ -161,6 +162,7 @@ function createDemoParts(sourceParts: DemoSourcePart[], groupIdMap: Map<string, 
       groupId: part.groupId ? (groupIdMap.get(part.groupId) ?? null) : null,
       materialId: profileToMaterialId.get(profileId) ?? null,
       buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+      buildOrder: part.buildOrder ?? sourceParts.indexOf(sourcePart) + 1,
       size: cloneVector(part.size),
       position: cloneVector(part.position),
       rotation: cloneVector(part.rotation),
@@ -242,6 +244,7 @@ function remapProjectIds(project: ProjectDocument): ProjectDocument {
       groupId: part.groupId ? (groupIdMap.get(part.groupId) ?? null) : null,
       materialId: part.materialId ? (materialIdMap.get(part.materialId) ?? null) : null,
       buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+      buildOrder: part.buildOrder ?? project.parts.indexOf(part) + 1,
       size: cloneVector(part.size),
       position: cloneVector(part.position),
       rotation: cloneVector(part.rotation),

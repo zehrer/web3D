@@ -154,6 +154,36 @@ export function RedoIcon(props: IconProps) {
   );
 }
 
+export function PlayIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M8 5.5v13l10-6.5z" />
+    </BaseIcon>
+  );
+}
+
+export function PauseIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M8 5.5v13" />
+      <path d="M16 5.5v13" />
+    </BaseIcon>
+  );
+}
+
+export function BuildSequenceIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M5 18.5h14" />
+      <path d="M7 15.5h3v3H7z" />
+      <path d="M10.5 11.5h3v7h-3z" />
+      <path d="M14 7.5h3v11h-3z" />
+      <path d="M6 6h4" />
+      <path d="M8 4v4" />
+    </BaseIcon>
+  );
+}
+
 export function HelpIcon(props: IconProps) {
   return (
     <BaseIcon {...props}>

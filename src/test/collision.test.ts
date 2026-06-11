@@ -15,6 +15,7 @@ function box(id: string, position: Vector3Like, size: Vector3Like, rotation = ve
     groupId: null,
     materialId: null,
     buildStatusId: DEFAULT_BUILD_STATUS_ID,
+    buildOrder: 1,
     size,
     position,
     rotation,

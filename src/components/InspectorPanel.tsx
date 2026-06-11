@@ -1295,6 +1295,7 @@ export function InspectorPanel() {
   const setPartGeometry = state.setPartGeometry;
   const setPartMaterial = state.setPartMaterial;
   const setPartBuildStatus = state.setPartBuildStatus;
+  const setPartBuildOrder = state.setPartBuildOrder;
   const createGlobalMaterialFromPart = state.createGlobalMaterialFromPart;
   const updatePart = state.updatePart;
   const projectMaterials = state.globalMaterialLibrary.materials;
@@ -1428,6 +1429,14 @@ export function InspectorPanel() {
                 ))}
               </select>
             </label>
+
+            <FieldRow
+              label="Build Order"
+              min={1}
+              step="1"
+              value={selectedPart.buildOrder}
+              onChange={(value) => setPartBuildOrder(selectedPart.id, value)}
+            />
 
             {selectedPart.objectType === "circle" ? (
               <FieldRow

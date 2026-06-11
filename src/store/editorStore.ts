@@ -49,6 +49,8 @@ export interface EditorState extends HistoryState {
   selectedMaterialId: string | null;
   selectedMaterialSource: "project" | "global";
   activeTool: ActiveTool;
+  buildPreviewEnabled: boolean;
+  buildPreviewStep: number;
 }
 
 export interface EditorActions {
@@ -73,6 +75,10 @@ export interface EditorActions {
   updateBuildStatus: (statusId: string, patch: Partial<Pick<BuildStatusDefinition, "label">>) => void;
   deleteBuildStatus: (statusId: string) => void;
   setPartBuildStatus: (partId: string, statusId: string) => void;
+  setPartBuildOrder: (partId: string, buildOrder: number) => void;
+  reorderPartsBuildOrder: (partIds: string[], targetPartId: string) => void;
+  setBuildPreviewEnabled: (enabled: boolean) => void;
+  setBuildPreviewStep: (step: number) => void;
   addProjectVariable: () => void;
   updateProjectVariable: (variableId: string, patch: Partial<Pick<ProjectVariable, "name" | "valueMm">>) => void;
   deleteProjectVariable: (variableId: string) => void;
@@ -157,6 +163,28 @@ function withProjectHistory(
 
 function replacePart(parts: PartNode[], partId: string, updater: (part: PartNode) => PartNode): PartNode[] {
   return parts.map((part) => (part.id === partId ? updater(part) : part));
+}
+
+function getNextBuildOrder(parts: PartNode[]): number {
+  return parts.reduce((max, part) => Math.max(max, Number.isFinite(part.buildOrder) ? part.buildOrder : 0), 0) + 1;
+}
+
+function normalizeBuildOrder(value: number): number {
+  if (!Number.isFinite(value)) {
+    return 1;
+  }
+  return Math.max(1, Math.round(value));
+}
+
+function normalizeBuildPreviewStep(value: number, maxStep: number): number {
+  if (!Number.isFinite(value)) {
+    return 0;
+  }
+  return Math.max(0, Math.min(maxStep, Math.round(value)));
+}
+
+function sortPartsByBuildOrder(parts: PartNode[]): PartNode[] {
+  return [...parts].sort((left, right) => left.buildOrder - right.buildOrder || left.name.localeCompare(right.name) || left.id.localeCompare(right.id));
 }
 
 function replaceGroup(groups: GroupNode[], groupId: string, updater: (group: GroupNode) => GroupNode): GroupNode[] {
@@ -278,6 +306,8 @@ export function createEditorStore() {
     selectedMaterialId: null,
     selectedMaterialSource: "global",
     activeTool: "move",
+    buildPreviewEnabled: false,
+    buildPreviewStep: 0,
     undoStack: [],
     redoStack: [],
 
@@ -289,9 +319,15 @@ export function createEditorStore() {
           cutSettings: project.cutSettings ?? { kerfMm: 3 },
           variables: project.variables ?? [],
           buildStatuses: project.buildStatuses ?? DEFAULT_BUILD_STATUSES.map((status) => ({ ...status })),
-          parts: project.parts.map((part) => ({ ...part, buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID })),
+          parts: project.parts.map((part, index) => ({
+            ...part,
+            buildStatusId: part.buildStatusId ?? DEFAULT_BUILD_STATUS_ID,
+            buildOrder: part.buildOrder ?? index + 1,
+          })),
         },
         hydrated: true,
+        buildPreviewEnabled: false,
+        buildPreviewStep: 0,
         selectedPartId: null,
         selectedMeasurementId: null,
         selectedMaterialId: null,
@@ -320,6 +356,8 @@ export function createEditorStore() {
           selectedMeasurementId: null,
           selectedMaterialId: null,
           selectedMaterialSource: "global",
+          buildPreviewEnabled: false,
+          buildPreviewStep: 0,
           undoStack: [],
           redoStack: [],
         };
@@ -373,6 +411,15 @@ export function createEditorStore() {
       }),
 
     setActiveTool: (tool) => set({ activeTool: tool }),
+
+    setBuildPreviewEnabled: (enabled) => set((state) => ({
+      buildPreviewEnabled: enabled,
+      buildPreviewStep: enabled && state.buildPreviewStep === 0 && state.project.parts.length > 0 ? 1 : state.buildPreviewStep,
+    })),
+
+    setBuildPreviewStep: (step) => set((state) => ({
+      buildPreviewStep: normalizeBuildPreviewStep(step, getNextBuildOrder(state.project.parts) - 1),
+    })),
     renameProject: (name) =>
       set((state) => ({
         ...withProjectHistory(state, (project) => ({
@@ -472,6 +519,50 @@ export function createEditorStore() {
         };
       }),
 
+    setPartBuildOrder: (partId, buildOrder) =>
+      set((state) => ({
+        ...withProjectHistory(state, (project) => ({
+          ...project,
+          parts: replacePart(project.parts, partId, (part) => ({ ...part, buildOrder: normalizeBuildOrder(buildOrder) })),
+        })),
+      })),
+
+    reorderPartsBuildOrder: (partIds, targetPartId) =>
+      set((state) => {
+        const movingIds = [...new Set(partIds)].filter((partId) => state.project.parts.some((part) => part.id === partId));
+        if (movingIds.length === 0 || movingIds.includes(targetPartId)) {
+          return state;
+        }
+        const targetExists = state.project.parts.some((part) => part.id === targetPartId);
+        if (!targetExists) {
+          return state;
+        }
+        const movingSet = new Set(movingIds);
+
+        return {
+          ...withProjectHistory(state, (project) => {
+            const ordered = sortPartsByBuildOrder(project.parts);
+            const moving = ordered.filter((part) => movingSet.has(part.id));
+            const remaining = ordered.filter((part) => !movingSet.has(part.id));
+            const targetIndex = remaining.findIndex((part) => part.id === targetPartId);
+            if (targetIndex < 0) {
+              return project;
+            }
+            const nextOrdered = [
+              ...remaining.slice(0, targetIndex),
+              ...moving,
+              ...remaining.slice(targetIndex),
+            ];
+            const orderById = new Map(nextOrdered.map((part, index) => [part.id, index + 1]));
+
+            return {
+              ...project,
+              parts: project.parts.map((part) => ({ ...part, buildOrder: orderById.get(part.id) ?? part.buildOrder })),
+            };
+          }),
+        };
+      }),
+
     addProjectVariable: () =>
       set((state) => {
         const variable: ProjectVariable = {
@@ -552,6 +643,7 @@ export function createEditorStore() {
           profileId,
           position: { x: 0, y: 0, z: 0 },
         });
+        nextPart.buildOrder = getNextBuildOrder(state.project.parts);
 
         const history = withProjectHistory(state, (project) => ({
           ...project,
@@ -697,6 +789,7 @@ export function createEditorStore() {
             y: selected.position.y,
             z: selected.position.z,
           },
+          buildOrder: getNextBuildOrder(state.project.parts),
         };
 
         const history = withProjectHistory(state, (project) => ({
@@ -723,6 +816,7 @@ export function createEditorStore() {
         const stepDistance = Math.sign(options.gap || 1) * (getPatternProfileStep(selected, options.axis) + Math.abs(options.gap));
         const patternParts = Array.from({ length: copies }, (_, index) => {
           const step = index + 1;
+          const baseBuildOrder = getNextBuildOrder(state.project.parts);
 
           return {
             ...(JSON.parse(JSON.stringify(selected)) as PartNode),
@@ -733,6 +827,7 @@ export function createEditorStore() {
               y: selected.position.y + direction.y * stepDistance * step,
               z: selected.position.z + direction.z * stepDistance * step,
             },
+            buildOrder: baseBuildOrder + index,
           };
         });
 
@@ -838,6 +933,7 @@ export function createEditorStore() {
           position: { x: 0, y: 0, z: 0 },
           materialId: material.id,
         });
+        nextPart.buildOrder = getNextBuildOrder(state.project.parts);
         // Override createObjectPart's profile-derived color/locks with the material's own.
         nextPart.color = material.color;
         nextPart.lockedAxes = { ...material.lockedAxes };
@@ -868,6 +964,7 @@ export function createEditorStore() {
             position: { x: 0, y: 0, z: 0 },
             materialId: globalMaterial.id,
           });
+          nextPart.buildOrder = getNextBuildOrder(project.parts);
           nextPart.color = globalMaterial.color;
           nextPart.lockedAxes = { ...globalMaterial.lockedAxes };
           Object.assign(nextPart, legacyLockFieldsFromSize(globalMaterial.defaultSize, globalMaterial.lockedAxes));
